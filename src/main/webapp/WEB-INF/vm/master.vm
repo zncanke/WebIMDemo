@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        用户主页面
+    </title>
+</head>
+<body>
+
+<div align="center">
+
+    <div style="width:90%">
+
+        <div style="height:120px">
+
+            <h1>
+                用户主界面
+            </h1>
+
+        #if($!{username})
+            <label>当前用户:$!{username}----<font color="green" id="statusFont">状态:已登录</font></label>
+            <input type="hidden" value="$!{username}" id="usernameHiddenId"/>
+        #else
+
+            <form action="/user/login">
+                <input value="用户名" name="username" />
+                <input type="submit" value="提交" />
+            </form>
+        #end
+        </div>
+
+        <div style="width:35%;height:400px; float:left;">
+
+            <h3>
+                用户列表
+            </h3>
+
+
+            <div id="userListDiv">
+
+                <table border="1">
+
+                    <thead>
+
+                    <tr>
+
+                        <th width="30%">用户</th>
+
+
+                        <th width="30%">最后登录时间</th>
+
+
+                        <th width="20%">状态</th>
+
+
+                        <th width="20%">操作</th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    <tr>
+
+                        <td >test1</td>
+
+
+                        <td width="30%">2016-03-14 17:24:30</td>
+
+
+                        <td width="20%">在线</td>
+
+
+                        <td width="20%"><input type="button" value="聊天" /></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td >test1</td>
+
+
+                        <td width="30%">2016-03-14 17:24:30</td>
+
+
+                        <td width="20%">在线</td>
+
+
+                        <td width="20%"><input type="button" value="聊天" /></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td >test1</td>
+
+
+                        <td width="30%">2016-03-14 17:24:30</td>
+
+
+                        <td width="20%">在线</td>
+
+
+                        <td width="20%"><input type="button" value="聊天" /></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td >test1</td>
+
+
+                        <td width="30%">2016-03-14 17:24:30</td>
+
+
+                        <td width="20%">在线</td>
+
+
+                        <td width="20%"><input type="button" value="聊天" /></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td >test1</td>
+
+
+                        <td width="30%">2016-03-14 17:24:30</td>
+
+
+                        <td width="20%">在线</td>
+
+
+                        <td width="20%"><input type="button" value="聊天" /></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td >test1</td>
+
+
+                        <td width="30%">2016-03-14 17:24:30</td>
+
+
+                        <td width="20%">在线</td>
+
+
+                        <td width="20%"><input type="button" value="聊天" /></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td >test1</td>
+
+
+                        <td width="30%">2016-03-14 17:24:30</td>
+
+
+                        <td width="20%">在线</td>
+
+
+                        <td width="20%"><input type="button" value="聊天" /></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td >test1</td>
+
+
+                        <td width="30%">2016-03-14 17:24:30</td>
+
+
+                        <td width="20%">在线</td>
+
+
+                        <td width="20%"><input type="button" value="聊天" /></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td >test1</td>
+
+
+                        <td width="30%">2016-03-14 17:24:30</td>
+
+
+                        <td width="20%">在线</td>
+
+
+                        <td width="20%"><input type="button" value="聊天" /></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td >test1</td>
+
+
+                        <td width="30%">2016-03-14 17:24:30</td>
+
+
+                        <td width="20%">在线</td>
+
+
+                        <td width="20%"><input type="button" value="聊天" /></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td >test1</td>
+
+
+                        <td width="30%">2016-03-14 17:24:30</td>
+
+
+                        <td width="20%">在线</td>
+
+
+                        <td width="20%"><input type="button" value="聊天" /></td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+
+                <div id="userListPagination">
+
+                    <div>
+                        首页 上一页
+                        <input value="1" style="width:20px;height:15px" url="/imlearntest/im/userList?1=1&limit=10" />
+                        下一页 尾页
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div style="height:400px; width:1px; border-left:1px #000 solid;float:left;margin:5px;">
+        </div>
+
+
+        <div style="height:400px;float:left;width:55%;" id="chatDiv">
+
+            <h3>聊天窗口</h3>
+
+
+            <div id="chatRecordList">
+
+                <table border="1" width="100%">
+
+                    <thead>
+
+                    <tr>
+
+                        <th>xxx的信息</th>
+
+
+                        <th>你的信息</th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody id="chatLogTbody">
+
+                    <tr>
+
+                        <td colspan="2" align="left">hello</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td colspan="2" align="left">hello</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td colspan="2" align="left">hello</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td colspan="2" align="left">hello</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td colspan="2" align="left">hello</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td colspan="2" align="left">hello</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td colspan="2" align="left">hello</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td colspan="2" align="left">hello</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td colspan="2" align="left">hello</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td colspan="2" align="left">hello</td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+
+                <div id="chatRecordPagination">
+
+                    <div>
+                        <a href="javascript:void(0);" url="/imlearntest${chatRecordPageModel.getFirstUrl()}">
+                            首页
+                        </a>
+                        上一页
+                        <input value="" style="width:20px;height:15px" url="/imlearntest${chatRecordPageModel.getBaseUrl()}" />
+                        下一页
+                        <a href="javascript:void(0);" url="/imlearntest${chatRecordPageModel.getLastUrl()}">
+                            尾页
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div style="height:1px; width:100%; border-left:1px #fff solid;float:left;margin:5px;">
+            </div>
+
+
+            <div align="left">
+              <textarea rows="4" cols="60" id="messageTextarea">
+              </textarea>
+                <input type="button" value="发送" />
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
