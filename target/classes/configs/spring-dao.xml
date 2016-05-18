@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/jdbc
+    http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <!-- 数据库链接 -->
+    <bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!-- jdbc驱动包 -->
+        <property name="driverClassName">
+            <value>${driver_class_name}</value>
+        </property>
+        <!-- 链接字符串 -->
+        <property name="url">
+            <value>${jdbc_url}</value>
+        </property>
+        <!-- 用户名 -->
+        <property name="username">
+            <value>${jdbc_username}</value>
+        </property>
+        <!-- 密码 -->
+        <property name="password">
+            <value>${jdbc_password}</value>
+        </property>
+    </bean>
+    <!-- 链接回话工厂，用于生成链接 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="jdbcDataSource" />
+        <!-- 配置文件 -->
+        <property name="configLocation" value="classpath:mybatis/mybatis-configs.xml"></property>
+        <!-- 映射文件 -->
+        <property name="mapperLocations" value="classpath:mybatis/sqlmaps/*.xml"></property>
+        <!-- 映射对象的基础包 -->
+        <property name="typeAliasesPackage" value="com.will.imlearntest.po" />
+    </bean>
+    <!-- 数据访问层接口扫描包 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.will.imlearntest.dao" />
+    </bean>
+    <!-- 数据事务管理 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    <bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="jdbcDataSource"></property>
+    </bean>
+</beans>
