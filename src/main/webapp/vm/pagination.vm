@@ -11,7 +11,7 @@
     #end
     <input value="${pageModel.getCurPage()}" style="width:20px;height:15px" url="${pageModel.getBaseUrl()}"/>
     #if(${pageModel.hasNext()})
-        <a href="javascript:void(0);" url="${pageModel.getNextUrl()}">下一页</a>
+        <a href="javascript:void(0);" url="$pageModel.getNextUrl()">下一页</a>
     #else
         下一页
     #end

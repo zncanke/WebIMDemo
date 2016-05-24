@@ -60,7 +60,7 @@
     #parse("/vm/pagination.vm")
 </div>
 
-<script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+<script type="text/javascript" src="/js/jquery-1.12.0.min.js"></script>
 <script type="text/javascript" src="/js/pagination.js"></script>
 
 <script type="text/javascript">
@@ -77,14 +77,14 @@
      * userListPagination中的a标签注册点击事件响应
      */
     $("#userListPagination a").click(function(){
-        var $this = $(this);
-        clickGoto(userListPagination, $this);
+        var a = $(this);
+        clickGoto(userListPagination, a);
     });
     /**
      * userListPagination中的input标签注册内容变更事件响应
      */
     $("#userListPagination input").change(function(){
-        var $this = $(this);
-        changeGoto(userListPagination, $this);
+        var a = $(this);
+        changeGoto(userListPagination, a);
     });
 </script>
