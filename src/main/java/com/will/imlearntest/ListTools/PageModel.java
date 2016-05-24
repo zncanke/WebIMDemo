@@ -118,7 +118,6 @@ public class PageModel<T> {
         if (hasNext()) {
             nextPage = getCurPage() + 1;
         }
-        System.err.println(getUrl(nextPage));
         return getUrl(nextPage);
     }
 
