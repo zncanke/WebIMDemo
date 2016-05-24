@@ -25,13 +25,19 @@ public class UserStatusVo {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    public String getUsername() {
+        return username;
+    }
     public void setStatus(int status) {
         this.status = status;
     }
-
+    public int getStatus() {
+        return status;
+    }
     public void setLastHeartBeat(Date lastHeartBeat) {
         this.lastHeartBeat = lastHeartBeat;
     }
-
+    public Date getLastHeartBeat() {
+        return lastHeartBeat;
+    }
 }

@@ -1,6 +1,8 @@
 package com.will.imlearntest.controller;
 
+import com.will.imlearntest.ListTools.PageModel;
 import com.will.imlearntest.bo.UserBo;
+import com.will.imlearntest.vo.UserStatusVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,7 +25,21 @@ public class UserController {
     public void login(@ModelAttribute("name") String username, HttpServletRequest request,
                       HttpServletResponse response) throws IOException {
         request.getSession().setAttribute("username", username);
+        //System.err.println("Username:"+username);
         userBo.login(username);
         response.sendRedirect("/master/index");
+    }
+
+    @RequestMapping("userList")
+    public String userList(@ModelAttribute("page") int page, @ModelAttribute("limit") int limit,
+                           HttpServletRequest request, HttpServletResponse response) {
+        if (page <= 0) {
+            page = 1;
+        }
+
+        PageModel<UserStatusVo> pageModel = userBo.listUser(page , limit);
+
+        request.setAttribute("pageModel", pageModel);
+        return "/user/userList";
     }
 }
