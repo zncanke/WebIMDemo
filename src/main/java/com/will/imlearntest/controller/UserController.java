@@ -22,10 +22,9 @@ public class UserController {
     private UserBo userBo;
 
     @RequestMapping("login")
-    public void login(@ModelAttribute("name") String username, HttpServletRequest request,
+    public void login(@ModelAttribute("username") String username, HttpServletRequest request,
                       HttpServletResponse response) throws IOException {
         request.getSession().setAttribute("username", username);
-        //System.err.println("Username:"+username);
         userBo.login(username);
         response.sendRedirect("/master/index");
     }

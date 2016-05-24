@@ -2,7 +2,6 @@ package com.will.imlearntest.bo;
 
 import com.will.imlearntest.ListTools.PageModel;
 import com.will.imlearntest.vo.UserStatusVo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -27,21 +26,23 @@ public class UserBo {
     }
 
     public PageModel<UserStatusVo> listUser(int page, int limit) {
+        int offset = (page-1) * limit;
+        List<UserStatusVo> userStatusList = new ArrayList<UserStatusVo>();
+        int i = 0;
+        for (String username : userStatus.keySet()) {
+            if (i >= offset && i < offset + limit) {
+                userStatusList.add(userStatus.get(username));
+            }
+            i++;
+        }
+
         PageModel<UserStatusVo> pageModel = new PageModel<UserStatusVo>();
         pageModel.setClazz(UserStatusVo.class);
+        pageModel.setData(userStatusList);
         pageModel.setLimit(limit);
-        int offset = (page-1) * limit;
         pageModel.setOffset(offset);
-        pageModel.setTotal(Integer.MAX_VALUE);
-        List<UserStatusVo> userList = new ArrayList<UserStatusVo>();
-        for(int i=offset; i<offset+limit; i++ ) {
-            UserStatusVo user = new UserStatusVo();
-            user.setLastHeartBeat(new Date());
-            user.setStatus(1);
-            user.setUsername("username" + i);
-            userList.add(user);
-        }
-        pageModel.setData(userList);
+        pageModel.setTotal(userStatus.size());
+
         return pageModel;
     }
 }

@@ -26,7 +26,6 @@ public class MasterController {
         //System.err.println("Debug output:");
         //System.err.println(usernameObj);
         if(usernameObj != null) {
-            System.err.println("gen");
             PageModel<UserStatusVo> pageModel = userBo.listUser(1, 10);
             request.setAttribute("pageModel", pageModel);
         }
