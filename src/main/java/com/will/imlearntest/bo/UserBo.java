@@ -14,6 +14,14 @@ import java.util.*;
 public class UserBo {
     private static Map<String, UserStatusVo> userStatus = new Hashtable<String, UserStatusVo>();
 
+    static {
+        UserStatusVo userStatusVo = new UserStatusVo();
+        userStatusVo.setUsername("admin");
+        userStatusVo.setStatus(1);
+        userStatusVo.setLastHeartBeat(new Date());
+        userStatus.put("admin", userStatusVo);
+    }
+
     public void login(String username) {
         UserStatusVo userStatusVo = userStatus.get(username);
         if (userStatusVo == null) {
