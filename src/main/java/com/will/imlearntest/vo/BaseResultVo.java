@@ -10,4 +10,10 @@ public class BaseResultVo {
         this.status = status;
         this.message = message;
     }
+    public int getStatus() {
+        return status;
+    }
+    public String getMessage() {
+        return message;
+    }
 }

@@ -63,15 +63,14 @@ public class ChatController {
                                     @ModelAttribute("toUserName") String toUserName,
                                     @ModelAttribute("content") String content, HttpServletRequest request,
                                     HttpServletResponse response) {
-//        System.err.println("enter sendMessage");
+        System.err.println("enter sendMessage");
         chatBo.sendMessage(fromUserName, toUserName, content);
         return BaseResultVo.success;
     }
 
     //ChatController实现新消息监听
     @RequestMapping("acceptMessage")
-    @ResponseBody
-    public BaseResultVo acceptMessage(@ModelAttribute("fromUserName") String fromUserName,
+    public @ResponseBody BaseResultVo acceptMessage(@ModelAttribute("fromUserName") String fromUserName,
                                       @ModelAttribute("toUserName") String toUserName, HttpServletRequest request,
                                       HttpServletResponse response) throws IOException {
         boolean acceptMessageFlag = chatBo.acceptMessage(fromUserName, toUserName);

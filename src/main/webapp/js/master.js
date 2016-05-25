@@ -26,7 +26,7 @@ function sendMessage(fromUserName, toUserName) {
         url: "/chat/sendMessage",
         data:{fromUserName:fromUserName, toUserName:toUserName, content:message},
         success: function(result){
-            alert(result.status);
+            //alert(result.status);
             if(result.status == 200) {
                 $("#messageTextarea").val("");
                 var trObj = $("<tr></tr>");
