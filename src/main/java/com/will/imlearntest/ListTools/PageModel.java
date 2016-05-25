@@ -1,5 +1,6 @@
 package com.will.imlearntest.ListTools;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -144,5 +145,12 @@ public class PageModel<T> {
             }
         }
         return baseURL;
+    }
+
+    public void addParam(String paramKey, String paramValue) {
+        if (params == null) {
+            params = new HashMap<String, String>();
+        }
+        params.put(paramKey, paramValue);
     }
 }

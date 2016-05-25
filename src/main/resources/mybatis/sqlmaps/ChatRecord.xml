@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.will.imlearntest.dao.ChatRecordDao">
+    <sql id="row_sql">
+        ID, CREATE_TIME, UPDATE_TIME, VERSION,FROM_USER_NAME,TO_USER_NAME,
+        CONTENT
+    </sql>
+    <insert id="insert" parameterType="ChatRecordPo">
+        insert into CHAT_RECORD(
+        CREATE_TIME, UPDATE_TIME, VERSION,FROM_USER_NAME,TO_USER_NAME,CONTENT
+        ) values (
+        now(), now(), 0, #{fromUserName}, #{toUserName}, #{content}
+        )
+    </insert>
+    <select id="list" resultType="ChatRecordPo">
+        select * from CHAT_RECORD
+        where 1 = 1
+        <if test="fromUserName != null &amp;&amp; toUserName != null">
+            and (from_user_name = #{fromUserName} and to_user_name = #{fromUserName}) or (from_user_name = #{toUserName} or to_user_name = #{toUserName})
+        </if>
+        order by id desc
+        limit #{offset}, #{limit}
+    </select>
+    <select id="count" resultType="int">
+        select count(*) from CHAT_RECORD
+        where 1 = 1
+        <if test="fromUserName != null">
+            and from_user_name = #{fromUserName} or to_user_name = #{fromUserName}
+        </if>
+        <if test="toUserName != null">
+            and from_user_name = #{toUserName} or to_user_name = #{toUserName}
+        </if>
+    </select>
+</mapper>

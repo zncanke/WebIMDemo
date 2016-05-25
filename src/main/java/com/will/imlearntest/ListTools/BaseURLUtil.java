@@ -1,5 +1,6 @@
 package com.will.imlearntest.ListTools;
 
+import com.will.imlearntest.vo.ChatRecordVo;
 import com.will.imlearntest.vo.UserStatusVo;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ public class BaseURLUtil {
 
     static {
         urlMap.put(UserStatusVo.class, "/user/userList?1=1");
+        urlMap.put(ChatRecordVo.class, "/chat/chatRecordList?1=1");
     }
 
     public static String getBaseURL(Class clazz) {

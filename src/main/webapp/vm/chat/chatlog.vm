@@ -1,0 +1,39 @@
+<table  border="1" width="100%">
+    <thead>
+    <tr>
+        <th>$!{toUserName}的信息</th>
+        <th>你的信息</th>
+    </tr>
+    </thead>
+    <tbody id="chatLogTbody">
+        #foreach($item in  ${pageModel.getData()})
+        <tr>
+            #if(${item.fromUserName} != ${fromUserName})
+                <td colspan="2" align="left">${item.content}</td>
+            #else
+                <td colspan="2" align="right">${item.content}</td>
+            #end
+        </tr>
+        #end
+    </tbody>
+</table>
+<div id="chatRecordPagination">
+    #parse("/vm/pagination.vm")
+</div>
+<script type="text/javascript">
+    /**
+     * 更新聊天记录
+     */
+    function chatRecordPagination(result) {
+        $("#chatRecordList").html(result);
+    }
+
+    $("#chatRecordPagination a").click(function(){
+        var $this = $(this);
+        clickGoto(chatRecordPagination, $this);
+    });
+    $("#chatRecordPagination input").change(function(){
+        var $this = $(this);
+        changeGoto(chatRecordPagination, $this);
+    });
+</script>
