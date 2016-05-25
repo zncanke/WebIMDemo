@@ -42,4 +42,22 @@ public class ChatRecordBo {
         pageModel.addParam("toUserName", toUserName);
         return pageModel;
     }
+
+    public boolean addChat(String fromUsername, String toUsername, String content) {
+//        System.err.println("addChat1");
+        ChatRecordPo chatRecordPo = new ChatRecordPo();
+//        System.err.println("addChat2");
+        chatRecordPo.setFromUserName(fromUsername);
+//        System.err.println("addChat3");
+        chatRecordPo.setToUserName(toUsername);
+//        System.err.println("addChat4");
+        chatRecordPo.setContent(content);
+//        System.err.println("before insert");
+        int insertRowNum = chatRecordDao.insert(chatRecordPo);
+//        System.err.println("after insert");
+        if (insertRowNum != 1) {
+            return false;
+        }
+        return true;
+    }
 }

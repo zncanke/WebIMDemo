@@ -6,3 +6,9 @@
 <div align="left">
     <textarea rows="4" cols="60"  id="messageTextarea"></textarea> <input type="button" value="发送" onclick="sendMessage('$!{fromUserName}', '$!{toUserName}')"/>
 </div>
+
+#if($!{fromUserName})
+<script type="text/javascript">
+    acceptMessage('$!{fromUserName}', '$!{toUserName}');
+</script>
+#end
