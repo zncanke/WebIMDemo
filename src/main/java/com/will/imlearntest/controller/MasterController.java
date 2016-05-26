@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created by willl on 5/18/16.
@@ -21,13 +22,15 @@ public class MasterController {
     private UserBo userBo;
 
     @RequestMapping("index")
-    public String index(HttpServletRequest request, HttpServletResponse response) {
+    public String index(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
         Object usernameObj = request.getSession().getAttribute("username");
-        //System.err.println("Debug output:");
-        //System.err.println(usernameObj);
         if(usernameObj != null) {
             PageModel<UserStatusVo> pageModel = userBo.listUser(1, 10);
             request.setAttribute("pageModel", pageModel);
+        } else {
+            response.sendRedirect("/login/index");
+            return null;
         }
         return "master";
     }

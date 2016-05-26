@@ -1,4 +1,4 @@
-package com.will.imlearntest.ListTools;
+package com.will.imlearntest.util;
 
 import com.will.imlearntest.vo.ChatRecordVo;
 import com.will.imlearntest.vo.UserStatusVo;

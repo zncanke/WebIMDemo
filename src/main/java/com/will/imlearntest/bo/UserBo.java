@@ -1,7 +1,10 @@
 package com.will.imlearntest.bo;
 
 import com.will.imlearntest.ListTools.PageModel;
+import com.will.imlearntest.dao.UserDao;
+import com.will.imlearntest.po.UserPo;
 import com.will.imlearntest.vo.UserStatusVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -12,6 +15,10 @@ import java.util.*;
 
 @Service
 public class UserBo {
+
+    @Autowired
+    private UserDao userDao;
+
     private static Map<String, UserStatusVo> userStatus = new Hashtable<String, UserStatusVo>();
 
     static {
@@ -22,15 +29,11 @@ public class UserBo {
         userStatus.put("admin", userStatusVo);
     }
 
-    public void login(String username) {
-        UserStatusVo userStatusVo = userStatus.get(username);
-        if (userStatusVo == null) {
-            userStatusVo = new UserStatusVo();
-            userStatus.put(username, userStatusVo);
-        }
-        userStatusVo.setUsername(username);
-        userStatusVo.setStatus(1);
-        userStatusVo.setLastHeartBeat(new Date());
+    public boolean login(String username, String password) {
+        List<UserPo> res = userDao.checkUser(username, password);
+        if (res.size() == 1)
+            return true;
+        return false;
     }
 
     public PageModel<UserStatusVo> listUser(int page, int limit) {

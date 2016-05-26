@@ -2,11 +2,13 @@ package com.will.imlearntest.controller;
 
 import com.will.imlearntest.ListTools.PageModel;
 import com.will.imlearntest.bo.UserBo;
+import com.will.imlearntest.vo.BaseResultVo;
 import com.will.imlearntest.vo.UserStatusVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,11 +24,15 @@ public class UserController {
     private UserBo userBo;
 
     @RequestMapping("login")
-    public void login(@ModelAttribute("username") String username, HttpServletRequest request,
-                      HttpServletResponse response) throws IOException {
+    public @ResponseBody BaseResultVo login(@ModelAttribute("username") String username,
+                       @ModelAttribute("password") String password,
+                       HttpServletRequest request,
+                       HttpServletResponse response) throws IOException {
         request.getSession().setAttribute("username", username);
-        userBo.login(username);
-        response.sendRedirect("/master/index");
+        if (userBo.login(username, password))
+            return BaseResultVo.success;
+        else
+            return new BaseResultVo(0, "certification failed");
     }
 
     @RequestMapping("userList")

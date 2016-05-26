@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>Elastic Login Form</title>
+
+
+
+
+    <link rel="stylesheet" href="/css/login/style.css">
+
+
+
+
+</head>
+
+<body>
+
+<!--Google Font - Work Sans-->
+<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,700' rel='stylesheet' type='text/css'>
+
+<div class="container">
+    <div class="profile">
+        <button class="profile__avatar" id="toggleProfile">
+            <img src="https://pbs.twimg.com/profile_images/554631714970955776/uzPxPPtr.jpeg" alt="Avatar" />
+        </button>
+        <div class="profile__form">
+            <div class="profile__fields">
+                <div class="field">
+                    <input type="text" id="fieldUser" class="input" required pattern=.*\S.* />
+                    <label for="fieldUser" class="label">Username</label>
+                </div>
+                <div class="field">
+                    <input type="password" id="fieldPassword" class="input" required pattern=.*\S.* />
+                    <label for="fieldPassword" class="label">Password</label>
+                </div>
+                <div class="profile__footer">
+                    <button class="btn" onclick="check()">SignIn</button>
+                    <button class="btn">SignUp</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/jquery-1.12.0.min.js"></script>
+<script src="/js/login/index.js"></script>
+<script type="text/javascript">
+    function check() {
+        var username = document.getElementById('fieldUser').value;
+        var password = document.getElementById('fieldPassword').value;
+        $.ajax({
+            type: "POST",
+            url: "/user/login",
+            data:{username:username, password:password},
+            success: function(result){
+                //alert("succeeded");
+                if (result.status == 200) {
+                    window.location.href = "/master/index";
+                } else {
+                    alert("Incorrect username or password.");
+                }
+            }
+        });
+    }
+</script>
+
+
+</body>
+</html>
