@@ -55,9 +55,9 @@ public class UserController {
                         throws IOException{
         List<UserStatusVo> res = userBo.listFriends((String)request.getSession().getAttribute("username"));
         request.getSession().setAttribute("friendList", res);
-        for (UserStatusVo item : res) {
+        /*for (UserStatusVo item : res) {
             System.out.println(item.getUsername() + " " + item.getStatus());
-        }
+        }*/
         response.sendRedirect("/main");
     }
 }
