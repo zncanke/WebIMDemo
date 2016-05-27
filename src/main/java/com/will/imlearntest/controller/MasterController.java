@@ -26,10 +26,10 @@ public class MasterController {
             throws IOException {
         Object usernameObj = request.getSession().getAttribute("username");
         if(usernameObj != null) {
-            PageModel<UserStatusVo> pageModel = userBo.listUser(1, 10);
-            request.setAttribute("pageModel", pageModel);
+//            PageModel<UserStatusVo> pageModel = userBo.listUser(1, 10);
+//            request.setAttribute("pageModel", pageModel);
         } else {
-            response.sendRedirect("/login/index");
+            response.sendRedirect("/login");
             return null;
         }
         return "master";

@@ -1,7 +1,7 @@
 package com.will.imlearntest.bo;
 
-import com.will.imlearntest.ListTools.PageModel;
 import com.will.imlearntest.dao.UserDao;
+import com.will.imlearntest.po.FriendshipPo;
 import com.will.imlearntest.po.UserPo;
 import com.will.imlearntest.vo.UserStatusVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +21,13 @@ public class UserBo {
 
     private static Map<String, UserStatusVo> userStatus = new Hashtable<String, UserStatusVo>();
 
-    static {
+    /*static {
         UserStatusVo userStatusVo = new UserStatusVo();
         userStatusVo.setUsername("admin");
         userStatusVo.setStatus(1);
         userStatusVo.setLastHeartBeat(new Date());
         userStatus.put("admin", userStatusVo);
-    }
+    }*/
 
     public boolean login(String username, String password) {
         List<UserPo> res = userDao.checkUser(username, password);
@@ -36,7 +36,24 @@ public class UserBo {
         return false;
     }
 
-    public PageModel<UserStatusVo> listUser(int page, int limit) {
+    public List<UserStatusVo> listFriends(String username) {
+        UserPo user = userDao.findUser(-1, username);
+        System.out.println(user.getId());
+        List<UserStatusVo> list = new ArrayList<UserStatusVo>();
+        list.clear();
+        List<FriendshipPo> res = userDao.friendList(user.getId());
+        for (FriendshipPo item : res) {
+            UserStatusVo tmp = new UserStatusVo();
+            UserPo u = userDao.findUser(item.getFriendId(), "");
+            tmp.setUsername(u.getUsername());
+            tmp.setStatus(u.getStatus());
+            tmp.setLastHeartBeat(new Date());
+            list.add(tmp);
+        }
+        return list;
+    }
+
+    /*public PageModel<UserStatusVo> listUser(int page, int limit) {
         int offset = (page-1) * limit;
         List<UserStatusVo> userStatusList = new ArrayList<UserStatusVo>();
         int i = 0;
@@ -55,5 +72,5 @@ public class UserBo {
         pageModel.setTotal(userStatus.size());
 
         return pageModel;
-    }
+    }*/
 }

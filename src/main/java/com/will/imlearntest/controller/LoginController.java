@@ -15,9 +15,9 @@ public class LoginController {
     public String index(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         if (request.getSession().getAttribute("username") == null) {
-            return "login";
+            return "/login";
         } else {
-            response.sendRedirect("/master/index");
+            response.sendRedirect("/main");
             return null;
         }
     }

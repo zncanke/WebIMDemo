@@ -15,7 +15,7 @@ public class MySessionListener implements HttpSessionListener{
         HttpSession session = httpSessionEvent.getSession();
         ServletContext application = session.getServletContext();
         HashSet sessions = (HashSet) application.getAttribute("sessions");
-        System.out.println(session.getAttribute("username"));
+//        System.out.println(session.getAttribute("username"));
         sessions.remove(session);
     }
 }

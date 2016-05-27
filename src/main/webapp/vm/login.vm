@@ -56,7 +56,7 @@
             success: function(result){
                 //alert("succeeded");
                 if (result.status == 200) {
-                    window.location.href = "/master/index";
+                    window.location.href = "user/friendList";
                 } else {
                     alert("Incorrect username or password.");
                 }

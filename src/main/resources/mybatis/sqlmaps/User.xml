@@ -6,4 +6,12 @@
         select * from user
         where username = #{username} and password = #{password}
     </select>
+    <select id="friendList" resultType="FriendshipPo">
+        select * from friendship
+        where userId = ${userId};
+    </select>
+    <select id="findUser" resultType="UserPo">
+        select * from user
+        where username = #{username} or id = #{id}
+    </select>
 </mapper>
