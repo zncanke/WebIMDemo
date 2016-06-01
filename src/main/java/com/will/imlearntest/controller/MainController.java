@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class MainController {
     @RequestMapping("")
     public String index(HttpServletRequest request, HttpServletResponse response) {
-        Object usernameObj = request.getSession().getAttribute("username");
+        Object usernameObj = request.getSession().getAttribute("fromUserName");
         if(usernameObj != null) {
             return "/main";
         } else {

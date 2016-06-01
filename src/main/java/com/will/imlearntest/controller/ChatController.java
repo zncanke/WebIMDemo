@@ -22,7 +22,7 @@ public class ChatController {
     @Autowired
     private ChatRecordBo chatRecordBo;
 
-    @RequestMapping("chat")
+    /*@RequestMapping("chat")
     public String chat(@ModelAttribute("fromUserName") String fromUserName,
                        @ModelAttribute("toUserName") String toUserName, HttpServletRequest request,
                        HttpServletResponse response) {
@@ -82,14 +82,15 @@ public class ChatController {
         }
 
         return result;
-    }
+    }*/
 
-    @RequestMapping("chatBox")
-    public void chatRecord(@ModelAttribute("fromUsername") String fromUsername,
-                           @ModelAttribute("toUsername") String toUsername,
+    @RequestMapping("chatbox")
+    public String chatbox( @ModelAttribute("toUserName") String toUserName,
                            HttpServletRequest request,
                            HttpServletResponse response) {
-        System.out.println(fromUsername + " " + toUsername);
+        request.getSession().setAttribute("toUserName", toUserName);
+//        System.out.println(toUserName);
+        return "/chatbox";
     }
 
 }

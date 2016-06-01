@@ -38,7 +38,7 @@ public class UserBo {
 
     public List<UserStatusVo> listFriends(String username) {
         UserPo user = userDao.findUser(-1, username);
-        System.out.println(user.getId());
+//        System.out.println(user.getId());
         List<UserStatusVo> list = new ArrayList<UserStatusVo>();
         list.clear();
         List<FriendshipPo> res = userDao.friendList(user.getId());

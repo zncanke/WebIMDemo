@@ -28,6 +28,7 @@
         <property name="prefix" value="/vm/" />
         <property name="exposeRequestAttributes" value="true" />
         <property name="exposeSessionAttributes" value="true" />
+        <property name="allowSessionOverride" value="true"/>
     </bean>
 
     <!-- velocity引擎 -->

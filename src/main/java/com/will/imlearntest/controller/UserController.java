@@ -31,7 +31,9 @@ public class UserController {
                        @ModelAttribute("password") String password,
                        HttpServletRequest request,
                        HttpServletResponse response) throws IOException {
-        request.getSession().setAttribute("username", username);
+        request.getSession().setAttribute("fromUserName", username);
+        request.getSession().setAttribute("toUserName", "");
+//        System.out.println(username+" "+password);
         if (userBo.login(username, password))
             return BaseResultVo.success;
         else
@@ -53,7 +55,7 @@ public class UserController {
     @RequestMapping("friendList")
     public void friendList(HttpServletRequest request, HttpServletResponse response)
                         throws IOException{
-        List<UserStatusVo> res = userBo.listFriends((String)request.getSession().getAttribute("username"));
+        List<UserStatusVo> res = userBo.listFriends((String)request.getSession().getAttribute("fromUserName"));
         request.getSession().setAttribute("friendList", res);
         /*for (UserStatusVo item : res) {
             System.out.println(item.getUsername() + " " + item.getStatus());

@@ -3,12 +3,12 @@
         <img width="50" height="50" src="http://cs625730.vk.me/v625730358/1126a/qEjM1AnybRA.jpg">
     </div>
     <div class="info">
-        <div class="name">Юния Гапонович</div>
+        <div class="name">$!{toUserName}</div>
         <div class="count">already 1 902 messages</div>
     </div>
     <i class="fa fa-star"></i>
 </div>
-<ul class="messages" name="messages">
+<ul class="messages" id="messages">
     <li class="i">
         <div class="head">
             <span class="time">10:13 AM, Today</span>
@@ -18,8 +18,21 @@
     </li>
 </ul>
 <div class="write-form">
-    <textarea placeholder="Type your message" name="e" id="texxt"  rows="2" onkeypress="checkEnterPress()"></textarea>
+    <textarea placeholder="Type your message" name="e" id="texxt"  rows="2" onkeypress="checkKey(event)"></textarea>
     <i class="fa fa-picture-o"></i>
     <i class="fa fa-file-o"></i>
-    <span class="send" onclick="insertI('$!{username}', '$!{toUsername}')">Send</span>
+    <span class="send" onclick="insertI('$!{fromUserName}', '$!{toUserName}')">Send</span>
 </div>
+<script type="text/javascript">
+    var lol = {
+        cursorcolor: "#cdd2d6",
+        cursorwidth: "4px",
+        cursorborder: "none"
+    };
+    $(".messages").niceScroll(lol);
+    function checkKey(event) {
+        if (event.keyCode == 13) {
+            insertI('$!{fromUserName}', '$!{toUserName}');
+        }
+    }
+</script>

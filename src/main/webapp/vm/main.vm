@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html>
   <head>
     <meta charset="UTF-8">
     <title> Live chat </title>
@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="/css/style.css">
 
     
-    
+
     
   </head>
 
@@ -19,13 +19,6 @@
   <script src='http://cdnjs.cloudflare.com/ajax/libs/nicescroll/3.5.4/jquery.nicescroll.js'></script>
 
   <script src="/js/main.js"></script>
-  <script type="text/javascript">
-      username = "$!{username}";
-      function checkEnterPress() {
-          if (event.keyCode == 13)
-              insertI('$!{username}', '$!{toUsername}');
-      }
-  </script>
 
   <body>
 
@@ -35,12 +28,12 @@
 					<input placeholder="search..." type="search" name="" id="">
 					<input type="submit" value="&#xf002;">
 				</form>
-				<menu class="list-friends">
+				<menu class="list-friends" id="list-friends">
 					#parse("/vm/friendlist.vm")
 				</menu>
 		</div>
-		<div class="chat">
-			#parse("/vm/chatbox.vm")
+		<div class="chat" id="chat">
+			##parse("/vm/chatbox.vm")
 		</div>
 	</div>
 

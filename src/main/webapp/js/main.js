@@ -4,18 +4,18 @@ function claerResizeScroll() {
     return $(".messages").getNiceScroll(0).doScrollTop(999999, 999);
 };
 
-function insertI(username, toUsername) {
+function insertI(fromUserName, toUserName) {
   var innerText;
   innerText = $.trim($("#texxt").val());
   if (innerText !== "") {
-      send(JSON.stringify({fromUsername: username, toUsername: toUsername, content: innerText}));
+      send(JSON.stringify({fromUserName: fromUserName, toUserName: toUserName, content: innerText}));
   }
   if (innerText !== "") {
     $(".messages").append("" +
         "<li class=\"i\">" +
         "<div class=\"head\">" +
         "<span class=\"time\">" + (new Date().getHours()) + ":" + (new Date().getMinutes()) + " AM, Today</span>" +
-        "<span class=\"name\"> "+ username +" </span>" +
+        "<span class=\"name\"> "+ fromUserName +" </span>" +
         "</div>" +
         "<div class=\"message\">" + innerText + "</div>" +
         "</li>");
@@ -41,16 +41,6 @@ function insertI(username, toUsername) {
 
   $(document).ready(function() {
     $(".list-friends").niceScroll(conf);
-    $(".messages").niceScroll(lol);
-    /*$("#texxt").keypress(function(e) {
-      if (e.keyCode === 13) {
-        insertI();
-        return false;
-      }
-    });
-    /*return $(".send").click(function() {
-      return insertI();
-    });*/
   });
 
 }).call(this);
@@ -92,7 +82,7 @@ window.onbeforeunload = function(){
 
 //将消息显示在网页上
 function setMessageInnerHTML(innerHTML){
-    document.getElementsByName('messages').innerHTML +=
+    document.getElementById('messages').innerHTML +=
         "<li class=\"i\"> " +
             "<div class=\"head\"> <span class=\"time\">10:13 AM, Today</span>" +
                 "<span class=\"name\">Буль</span>" +
