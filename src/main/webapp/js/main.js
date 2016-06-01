@@ -92,7 +92,7 @@ window.onbeforeunload = function(){
 
 //将消息显示在网页上
 function setMessageInnerHTML(innerHTML){
-    document.getElementById('messages').innerHTML += "" +
+    document.getElementsByName('messages').innerHTML +=
         "<li class=\"i\"> " +
             "<div class=\"head\"> <span class=\"time\">10:13 AM, Today</span>" +
                 "<span class=\"name\">Буль</span>" +

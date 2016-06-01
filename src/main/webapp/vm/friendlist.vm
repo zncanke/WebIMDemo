@@ -18,3 +18,18 @@
         </div>
     </li>
 #end
+
+
+<script type="text/javascript">
+    $("#list-friends li").click(function(){
+        var toUsername = $(this).getElementsByClassName("user");
+        $.ajax({
+            type: "GET",
+            url: "/chat/chatBox",
+            data: {fromUsername: username, toUsername: toUsername},
+            success: function() {
+                alert("ok");
+            }
+        });
+    });
+</script>

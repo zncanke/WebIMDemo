@@ -60,4 +60,5 @@ public class UserController {
         }*/
         response.sendRedirect("/main");
     }
+
 }

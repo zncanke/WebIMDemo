@@ -38,5 +38,12 @@ public class MyWebSocket {
     public void onMessage(String message, Session session) {
         JSONObject jsonObject = (JSONObject)JSON.parse(message);
         System.out.println(jsonObject);
+        /*MyWebSocket myWebSocket = webSocketMap.get(jsonObject.getString("toUsername"));
+        jsonObject.remove("toUsername");
+        try {
+            myWebSocket.session.getBasicRemote().sendText(jsonObject.toJSONString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
     }
 }

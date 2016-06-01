@@ -8,7 +8,7 @@
     </div>
     <i class="fa fa-star"></i>
 </div>
-<ul class="messages">
+<ul class="messages" name="messages">
     <li class="i">
         <div class="head">
             <span class="time">10:13 AM, Today</span>

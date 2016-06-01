@@ -20,6 +20,7 @@
 
   <script src="/js/main.js"></script>
   <script type="text/javascript">
+      username = "$!{username}";
       function checkEnterPress() {
           if (event.keyCode == 13)
               insertI('$!{username}', '$!{toUsername}');

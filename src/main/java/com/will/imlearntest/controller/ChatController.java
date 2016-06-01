@@ -84,4 +84,12 @@ public class ChatController {
         return result;
     }
 
+    @RequestMapping("chatBox")
+    public void chatRecord(@ModelAttribute("fromUsername") String fromUsername,
+                           @ModelAttribute("toUsername") String toUsername,
+                           HttpServletRequest request,
+                           HttpServletResponse response) {
+        System.out.println(fromUsername + " " + toUsername);
+    }
+
 }
