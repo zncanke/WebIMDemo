@@ -16,7 +16,7 @@ body {
   background-image: linear-gradient(to bottom left, rgba(255, 255, 255, 0.6), transparent 60%, rgba(0, 0, 0, 0.6)), linear-gradient(to top left, #a0d3e4, #97d1e7);
 }
 .ui {
-  margin: 10px auto;
+  margin: 5% auto;
   width: 745px;
   height: 555px;
   background-color: #fff;
@@ -25,13 +25,35 @@ body {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   overflow: hidden;
+}
+.ui .fun{
+  height: 100%;
+  width: 8%;
+  background: #6e6a7d;
+  position: relative;
+}
+.ui .fun img {
+  position: absolute;
+  left: 12%;
+  top: 3%;
+  border-radius: 50%;
+  width: 80%;
+  height: 8%;
+}
+.ui .fun .add {
+  position: absolute;
+  top: 90%;
+  left: 12%;
+  border-radius: 50%;
+  width: 80%;
+  height: 8%;
 }
 .ui .search input {
   outline: none;
@@ -244,14 +266,17 @@ body {
   border-bottom-color: #7bc4ef;
 }
 .ui .write-form {
-  height: 150px;
+  height: 120px;
 }
 .ui .write-form textarea {
-  height: 75px;
-  margin: 17px 5%;
-  width: 90%;
+  height: 90px;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  margin-bottom: 2.5%;
+  margin-top: 1%;
+  width: 95%;
   outline: none;
-  padding: 15px;
+  padding: 10px;
   border: none;
   border-radius: 3px;
   resize: none;
@@ -273,16 +298,23 @@ body {
   text-transform: uppercase;
   font-weight: 700;
   float: right;
+  margin-top: 5px;
   margin-right: 5%;
   cursor: pointer;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .ui i.fa-file-o {
   margin-left: 15px;
+  margin-top: 6px;
+  outline: none;
+  float:left;
 }
 .ui i.fa-picture-o {
   margin-left: 5%;
+  margin-top: 6px;
+  outline: none;
+  float:left;
 }

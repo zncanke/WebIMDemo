@@ -30,10 +30,10 @@
     #end
 </ul>
 <div class="write-form">
-    <textarea placeholder="Type your message" name="e" id="texxt"  rows="2" onkeypress="checkKey(event)"></textarea>
     <i class="fa fa-picture-o"></i>
     <i class="fa fa-file-o"></i>
     <span class="send" onclick="insertI('$!{fromUserName}', '$!{toUserName}')">Send</span>
+    <textarea placeholder="Type your message" name="e" id="texxt"  rows="2"onkeypress="checkKey(event)"></textarea>
 </div>
 <script type="text/javascript">
     var lol = {
