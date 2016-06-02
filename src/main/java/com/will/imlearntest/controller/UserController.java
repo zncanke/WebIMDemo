@@ -1,6 +1,7 @@
 package com.will.imlearntest.controller;
 
 import com.will.imlearntest.ListTools.PageModel;
+import com.will.imlearntest.bo.ChatRecordBo;
 import com.will.imlearntest.bo.UserBo;
 import com.will.imlearntest.po.FriendshipPo;
 import com.will.imlearntest.vo.BaseResultVo;
@@ -25,6 +26,7 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserBo userBo;
+
 
     @RequestMapping("login")
     public @ResponseBody BaseResultVo login(@ModelAttribute("username") String username,

@@ -54,7 +54,7 @@
             url: "/user/login",
             data:{username:username, password:password},
             success: function(result){
-                alert("succeeded");
+//                alert("succeeded");
                 if (result.status == 200) {
                     window.location.href = "user/friendList";
                 } else {

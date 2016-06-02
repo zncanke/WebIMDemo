@@ -9,13 +9,25 @@
     <i class="fa fa-star"></i>
 </div>
 <ul class="messages" id="messages">
-    <li class="i">
-        <div class="head">
-            <span class="time">10:13 AM, Today</span>
-            <span class="name">Буль</span>
-        </div>
-        <div class="message">Привет!</div>
-    </li>
+    #foreach($item in ${records})
+        #if ($item.fromUserName == $!{fromUserName})
+            <li class="i">
+                <div class="head">
+                    <span class="time">$item.CreateTime</span>
+                    <span class="name">$item.fromUserName</span>
+                </div>
+                <div class="message">$item.content</div>
+            </li>
+        #else
+            <li class="friend-with-a-SVAGina">
+                <div class="head">
+                    <span class="name">$item.fromUserName</span>
+                    <span class="time">$item.CreateTime</span>
+                </div>
+                <div class="message">$item.content</div>
+            </li>
+        #end
+    #end
 </ul>
 <div class="write-form">
     <textarea placeholder="Type your message" name="e" id="texxt"  rows="2" onkeypress="checkKey(event)"></textarea>
@@ -35,4 +47,5 @@
             insertI('$!{fromUserName}', '$!{toUserName}');
         }
     }
+    claerResizeScroll();
 </script>

@@ -67,6 +67,7 @@ websocket.onopen = function(event){
 
 //接收到消息的回调方法
 websocket.onmessage = function(){
+    
     setMessageInnerHTML(event.data);
 }
 
@@ -80,14 +81,17 @@ window.onbeforeunload = function(){
     websocket.close();
 }
 
+
+
 //将消息显示在网页上
 function setMessageInnerHTML(innerHTML){
+    var jsonObject = JSON.parse(innerHTML);
     document.getElementById('messages').innerHTML +=
-        "<li class=\"i\"> " +
+        "<li class=\"friend-with-a-SVAGina\">" +
             "<div class=\"head\"> <span class=\"time\">10:13 AM, Today</span>" +
-                "<span class=\"name\">Буль</span>" +
+                "<span class=\"name\">" + jsonObject.fromUserName + "</span>" +
             "</div>" +
-            "<div class=\"message\">Привет!</div>" +
+            "<div class=\"message\">" + jsonObject.content + "</div>" +
         "</li>"
 }
 

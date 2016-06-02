@@ -14,4 +14,6 @@ public interface ChatRecordDao {
                                    @Param("offset") int offset, @Param("limit") int limit);
 
     public Integer count(@Param("fromUserName") String fromUserName, @Param("toUserName") String toUserName);
+    public List<ChatRecordPo> recordBetween(@Param("fromUserName") String fromUserName,
+                                            @Param("toUserName") String toUserName);
 }

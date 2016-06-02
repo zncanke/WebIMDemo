@@ -32,4 +32,11 @@
             and from_user_name = #{toUserName} or to_user_name = #{toUserName}
         </if>
     </select>
+    <select id="recordBetween" resultType="ChatRecordPo">
+        select * from chat_record
+        where (from_user_name = #{fromUserName} and to_user_name = #{toUserName})
+            or (from_user_name = #{toUserName} and to_user_name = #{fromUserName})
+        order by id desc
+        limit 5
+    </select>
 </mapper>

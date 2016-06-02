@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("chat")
@@ -88,8 +89,11 @@ public class ChatController {
     public String chatbox( @ModelAttribute("toUserName") String toUserName,
                            HttpServletRequest request,
                            HttpServletResponse response) {
+        String fromUserName = (String)request.getSession().getAttribute("fromUserName");
         request.getSession().setAttribute("toUserName", toUserName);
-//        System.out.println(toUserName);
+        List<ChatRecordVo> records = chatRecordBo.recordBetween(fromUserName, toUserName);
+        request.getSession().setAttribute("records", records);
+        System.out.println(records.size());
         return "/chatbox";
     }
 
