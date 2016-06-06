@@ -34,10 +34,9 @@ public class MyWebSocket {
     @OnOpen
     public void onOpen(Session session, EndpointConfig config) {
         HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
-        String username = (String)httpSession.getAttribute("fromUserName");
-//        System.out.println(username);
+        String email = (String)httpSession.getAttribute("fromEmail");
         this.session = session;
-        webSocketMap.put(username, this);
+        webSocketMap.put(email, this);
     }
 
     @OnClose
@@ -54,20 +53,16 @@ public class MyWebSocket {
     @OnMessage
     public void onMessage(String message, Session session) {
         JSONObject jsonObject = (JSONObject)JSON.parse(message);
-        MyWebSocket myWebSocket = webSocketMap.get(jsonObject.getString("toUserName"));
-        while (!chatRecordBo.addChat(jsonObject.getString("fromUserName"),
-                             jsonObject.getString("toUserName"),
+        MyWebSocket myWebSocket = webSocketMap.get(jsonObject.getString("toEmail"));
+        while (!chatRecordBo.addChat(jsonObject.getString("fromEmail"),
+                             jsonObject.getString("toEmail"),
                              jsonObject.getString("content")))
-            chatRecordBo.addChat(jsonObject.getString("fromUserName"),
-                    jsonObject.getString("toUserName"),
+            chatRecordBo.addChat(jsonObject.getString("fromEmail"),
+                    jsonObject.getString("toEmail"),
                     jsonObject.getString("content"));
 
 //        System.out.println(jsonObject);
 //        System.out.println(myWebSocket);
-
-        jsonObject.remove("toUserName");
-
-//        System.out.println(jsonObject);
         try {
             if (myWebSocket != null)
                 myWebSocket.session.getBasicRemote().sendText(jsonObject.toJSONString());

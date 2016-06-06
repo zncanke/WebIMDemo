@@ -3,25 +3,25 @@
         <img width="50" height="50" src="http://cs625730.vk.me/v625730358/1126a/qEjM1AnybRA.jpg">
     </div>
     <div class="info">
-        <div class="name">$!{toUserName}</div>
+        <div class="name">$!{toUsername}</div>
         <div class="count">already 1 902 messages</div>
     </div>
     <i class="fa fa-star"></i>
 </div>
 <ul class="messages" id="messages">
     #foreach($item in ${records})
-        #if ($item.fromUserName == $!{fromUserName})
+        #if ($item.fromEmail == $!{fromEmail})
             <li class="i">
                 <div class="head">
                     <span class="time">$item.CreateTime</span>
-                    <span class="name">$item.fromUserName</span>
+                    <span class="name">$fromUsername</span>
                 </div>
                 <div class="message">$item.content</div>
             </li>
         #else
             <li class="friend-with-a-SVAGina">
                 <div class="head">
-                    <span class="name">$item.fromUserName</span>
+                    <span class="name">$toUsername</span>
                     <span class="time">$item.CreateTime</span>
                 </div>
                 <div class="message">$item.content</div>
@@ -32,7 +32,7 @@
 <div class="write-form">
     <i class="fa fa-picture-o"></i>
     <i class="fa fa-file-o"></i>
-    <span class="send" onclick="insertI('$!{fromUserName}', '$!{toUserName}')">Send</span>
+    <span class="send" onclick="insertI('$!{fromEmail}', '$!{toEmail}', '$!{fromUsername}', '$!{toUsernam}')">Send</span>
     <textarea placeholder="Type your message" name="e" id="texxt"  rows="2"onkeypress="checkKey(event)"></textarea>
 </div>
 <script type="text/javascript">
@@ -44,7 +44,7 @@
     $(".messages").niceScroll(lol);
     function checkKey(event) {
         if (event.keyCode == 13) {
-            insertI('$!{fromUserName}', '$!{toUserName}');
+            insertI('$!{fromEmail}', '$!{toEmail}', '$!{fromUsername}', '$!{toUsernam}');
         }
     }
     claerResizeScroll();

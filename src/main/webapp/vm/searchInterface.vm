@@ -1,0 +1,71 @@
+<div id='container'>
+    <div class='cell'><input type='search' placeholder='Search your friends'></div>
+    <div class='cell'><div class='button'>Search</div></div>
+</div>
+<menu id="addFriendList">
+    <li>
+        <img width="50" height="50" src="http://lorempixel.com/50/50/people/0">
+        <div class="info">
+            <div class="user">Name Fam</div>
+            <div class="status off">left 23 min age</div>
+        </div>
+        <a class="addBtn">add</a>
+    </li>
+    <li>
+        <img width="50" height="50" src="http://lorempixel.com/50/50/people/99">
+        <div class="info">
+            <div class="user">Name Fam</div>
+            <div class="status off">left 23 min age</div>
+        </div>
+        <a class="addBtn">add</a>
+    </li>
+    <li>
+        <img width="50" height="50" src="http://lorempixel.com/50/50/people/99">
+        <div class="info">
+            <div class="user">Name Fam</div>
+            <div class="status off">left 23 min age</div>
+        </div>
+        <a class="addBtn">add</a>
+    </li>
+    <li>
+        <img width="50" height="50" src="http://lorempixel.com/50/50/people/99">
+        <div class="info">
+            <div class="user">Name Fam</div>
+            <div class="status off">left 23 min age</div>
+        </div>
+        <a class="addBtn">add</a>
+    </li>
+    <li>
+        <img width="50" height="50" src="http://lorempixel.com/50/50/people/99">
+        <div class="info">
+            <div class="user">Name Fam</div>
+            <div class="status off">left 23 min age</div>
+        </div>
+        <a class="addBtn">add</a>
+    </li>
+    <li>
+        <img width="50" height="50" src="http://lorempixel.com/50/50/people/99">
+        <div class="info">
+            <div class="user">Name Fam</div>
+            <div class="status off">left 23 min age</div>
+        </div>
+        <a class="addBtn">add</a>
+    </li>
+    <li>
+        <img width="50" height="50" src="http://lorempixel.com/50/50/people/99">
+        <div class="info">
+            <div class="user">Name Fam</div>
+            <div class="status off">left 23 min age</div>
+        </div>
+        <a class="addBtn">add</a>
+    </li>
+</menu>
+
+<script type="text/javascript">
+    var conf = {
+        cursorcolor: "#696c75",
+        cursorwidth: "4px",
+        cursorborder: "none"
+    };
+    $("#addFriendList").niceScroll(conf);
+</script>

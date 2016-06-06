@@ -12,11 +12,11 @@ public class ChatRecordVo {
     /**
      * 发送者用户名
      */
-    private String fromUserName;
+    private String fromEmail;
     /**
      * 接受者用户名
      */
-    private String toUserName;
+    private String toEmail;
     /**
      * 聊天内容
      */
@@ -25,9 +25,9 @@ public class ChatRecordVo {
     public ChatRecordVo(ChatRecordPo chatRecordPo) {
         this.content = chatRecordPo.getContent();
         this.createTime = chatRecordPo.getCreateTime();
-        this.fromUserName = chatRecordPo.getFromUserName();
+        this.fromEmail = chatRecordPo.getfromEmail();
         this.id = chatRecordPo.getId();
-        this.toUserName = chatRecordPo.getToUserName();
+        this.toEmail = chatRecordPo.gettoEmail();
         this.updateTime = chatRecordPo.getUpdateTime();
         this.version = chatRecordPo.getVersion();
     }
@@ -56,17 +56,17 @@ public class ChatRecordVo {
     public int getVersion() {
         return version;
     }
-    public void setFromUserName(String fromUserName) {
-        this.fromUserName = fromUserName;
+    public void setFromEmail(String fromEmail) {
+        this.fromEmail = fromEmail;
     }
-    public String getFromUserName() {
-        return fromUserName;
+    public String getFromEmail() {
+        return fromEmail;
     }
-    public void setToUserName(String toUserName) {
-        this.toUserName = toUserName;
+    public void setToEmail(String toEmail) {
+        this.toEmail = toEmail;
     }
-    public String getToUserName() {
-        return toUserName;
+    public String getToEmail() {
+        return toEmail;
     }
     public void setContent(String content) {
         this.content = content;

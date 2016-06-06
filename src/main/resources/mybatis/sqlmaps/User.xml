@@ -4,14 +4,34 @@
 <mapper namespace="com.will.imlearntest.dao.UserDao">
     <select id="checkUser" resultType="UserPo">
         select * from user
-        where username = #{username} and password = #{password}
+        where email = #{email} and password = #{password}
     </select>
     <select id="friendList" resultType="FriendshipPo">
         select * from friendship
         where userId = ${userId};
     </select>
-    <select id="findUser" resultType="UserPo">
+    <select id="findUserByEmail" resultType="UserPo">
         select * from user
-        where username = #{username} or id = #{id}
+        where  email = #{email}
     </select>
+    <select id="findUserById" resultType="UserPo">
+        select * from user
+        where  id = #{id}
+    </select>
+    <select id="getPersonalInfo" resultType="PersonalInfoPo">
+        select * from personal_info
+        where email = #{email}
+    </select>
+    <update id="updatePersonalInfo">
+        update personal_info SET
+        username = #{username},
+        signature = #{signature},
+        gender = #{gender}
+        where email = #{email}
+    </update>
+    <update id="updateUser">
+        update user SET
+        username = #{username}
+        where email = #{email}
+    </update>
 </mapper>

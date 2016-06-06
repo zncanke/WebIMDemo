@@ -21,6 +21,7 @@ public class UserStatusVo {
      * 上一次心跳时间
      */
     private Date lastHeartBeat;
+    private String email;
 
     public void setUsername(String username) {
         this.username = username;
@@ -39,5 +40,11 @@ public class UserStatusVo {
     }
     public Date getLastHeartBeat() {
         return lastHeartBeat;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getEmail() {
+        return email;
     }
 }

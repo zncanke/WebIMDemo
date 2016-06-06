@@ -1,10 +1,10 @@
 package com.will.imlearntest.controller;
 
-import com.will.imlearntest.ListTools.PageModel;
 import com.will.imlearntest.bo.ChatRecordBo;
 import com.will.imlearntest.bo.UserBo;
 import com.will.imlearntest.po.FriendshipPo;
 import com.will.imlearntest.vo.BaseResultVo;
+import com.will.imlearntest.vo.PersonalInfoVo;
 import com.will.imlearntest.vo.UserStatusVo;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,35 +29,22 @@ public class UserController {
 
 
     @RequestMapping("login")
-    public @ResponseBody BaseResultVo login(@ModelAttribute("username") String username,
+    public @ResponseBody BaseResultVo login(@ModelAttribute("email") String email,
                        @ModelAttribute("password") String password,
                        HttpServletRequest request,
                        HttpServletResponse response) throws IOException {
-        request.getSession().setAttribute("fromUserName", username);
-        request.getSession().setAttribute("toUserName", "");
-//        System.out.println(username+" "+password);
-        if (userBo.login(username, password))
+        request.getSession().setAttribute("fromEmail", email);
+        request.getSession().setAttribute("toEmail", "");
+        if (userBo.login(email, password))
             return BaseResultVo.success;
         else
             return new BaseResultVo(0, "certification failed");
     }
 
-   /* @RequestMapping("userList")
-    public String userList(@ModelAttribute("page") int page, @ModelAttribute("limit") int limit,
-                           HttpServletRequest request, HttpServletResponse response) {
-        if (page <= 0) {
-            page = 1;
-        }
-
-        PageModel<UserStatusVo> pageModel = userBo.listUser(page , limit);
-
-        request.setAttribute("pageModel", pageModel);
-        return "/user/userList";
-    }*/
     @RequestMapping("friendList")
     public void friendList(HttpServletRequest request, HttpServletResponse response)
                         throws IOException{
-        List<UserStatusVo> res = userBo.listFriends((String)request.getSession().getAttribute("fromUserName"));
+        List<UserStatusVo> res = userBo.listFriends((String)request.getSession().getAttribute("fromEmail"));
         request.getSession().setAttribute("friendList", res);
         /*for (UserStatusVo item : res) {
             System.out.println(item.getUsername() + " " + item.getStatus());
@@ -65,4 +52,28 @@ public class UserController {
         response.sendRedirect("/main");
     }
 
+    @RequestMapping("detailinfo")
+    public String detailinfo(@ModelAttribute("email") String email,
+                             HttpServletRequest request, HttpServletResponse response) {
+        request.getSession().setAttribute("detailEmail", email);
+        PersonalInfoVo personalInfoVo = userBo.getPersonalInfo(email);
+//        System.out.println(personalInfoVo.getEmail());
+        request.getSession().setAttribute("personalInfoVo", personalInfoVo);
+//        System.out.println(personalInfoVo);
+        return "detailinfo";
+    }
+
+    @RequestMapping("saveDetailinfo")
+    public String saveDetailinfo(@ModelAttribute("thename") String thename,
+                                 @ModelAttribute("thesign") String thesign,
+                                 @ModelAttribute("thegender") String thegender,
+                                 HttpServletRequest request, HttpServletResponse response) {
+        String detailEmail = (String)request.getSession().getAttribute("detailEmail");
+        String fromEmail = (String)request.getSession().getAttribute("fromEmail");
+        if (fromEmail.equals(detailEmail)) {
+//            System.out.print(thename+" "+thesign);
+            userBo.updatePersonalinfo(thename, thesign, thegender, fromEmail);
+        }
+        return "detailinfo";
+    }
 }

@@ -89,7 +89,7 @@ body {
 .ui .chat {
   width: 70%;
   height: 100%;
-  background: #f1f5f8;
+  background: #e5e5e5;
 }
 .ui .chat .info {
   display: -webkit-inline-box;
@@ -269,7 +269,7 @@ body {
   height: 120px;
 }
 .ui .write-form textarea {
-  height: 90px;
+  height: 105px;
   margin-left: 2.5%;
   margin-right: 2.5%;
   margin-bottom: 2.5%;
@@ -317,4 +317,313 @@ body {
   margin-top: 6px;
   outline: none;
   float:left;
+}
+
+/* add friend searchBox */
+
+#container {
+  display: table;
+
+  /* I want the whole search box
+     to be exactly this wide. */
+  width: 80%;
+
+  margin: 10% auto 0;
+}
+#container div.cell {
+  display: table-cell;
+}
+#container div.cell:last-child {
+  /* Makes sure this cell is only wide enough
+     for the button label. */
+  width: 1px;
+}
+
+#container input[type=search], div.button {
+  width: 100%;
+  height: 100%;
+
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  font-family: inherit;
+  font-size: inherit;
+}
+
+#container input[type=search] {
+  margin: 0;
+  padding: 0 10px;
+
+  background-color: #f8f8f8;
+
+  border: 0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+#container .button {
+  line-height: 200%;
+
+  margin: 0;
+  padding: 0 20px;
+
+  color: #fff;
+  background-color: #FF1717;
+  font-weight: bold;
+
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+  white-space: nowrap;
+}
+
+#container .button:hover {
+  background: #f7655b;
+  text-decoration: none;
+}
+
+/*addFriendList*/
+#addFriendList {
+  list-style: none;
+  margin: 5%;
+  height: 76%;
+  padding: 3%;
+  overflow: auto;
+}
+
+#addFriendList img {
+  border-radius: 50%;
+  border: 3px solid #696c75;
+  margin: 5px;
+}
+
+#addFriendList > li {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 0 10px 10px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#addFriendList .info {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+#addFriendList .user {
+  color: #fff;
+  margin-top: 12px;
+}
+#addFriendList .status {
+  position: relative;
+  color: #a8adb3;
+}
+
+
+/*addFriendButton*/
+.addBtn {
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  border-radius: 7px;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
+  font-family: Arial;
+  color: #ffffff;
+  background: #d81406;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+  height: 50%;
+  margin-top:5%;
+  font-size: 80%;
+}
+
+.addBtn:hover {
+  background: #f7655b;
+  text-decoration: none;
+}
+
+/*detail infomations*/
+.detailinfo {
+  margin: 5% auto;
+  height: 90%;
+  width: 90%;
+}
+
+.detailinfo .head {
+  border-radius: 50%;
+  margin-left: 36%;
+  margin-right: 36%;
+  margin-top: 10%;
+  height: 24%;
+  width: 28%;
+}
+
+.detailinfo .name {
+  margin: 1% 20%;
+  width: 60%;
+  height: 10%;
+  background: none;
+  border: none;
+  text-align: center;
+  font-size: 150%;
+}
+
+.detailinfo .signature {
+  margin: 1% 20%;
+  width: 60%;
+  height: 10%;
+  background: none;
+  border: none;
+  text-align: center;
+  resize: none;
+}
+
+.detailinfo .division {
+  width: 50%;
+  margin: 1% 25%;
+}
+
+.detailinfo .others {
+  background: none;
+  border: none;
+  text-align: center;
+  width: 100%;
+  font-size: 80%;
+  color: #a8a8a8;
+}
+
+.detailinfo .gender {
+  margin: 1% 31%;
+  font-size: 80%;
+  color: #a8a8a8;
+}
+
+/*active button*/
+.activeButton {
+  display: inline-block;
+  margin: 15% 42%;
+  padding: 2%;
+  font-size: 1.625rem;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #d81406;
+  border-radius: 3px;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 0 0 -2px #e5e5e5, 0 0 0 -1px #d81406;
+  box-shadow: 0 0 0 -2px #e5e5e5, 0 0 0 -1px #d81406;
+  border: none;
+  -webkit-transition: -webkit-box-shadow .3s;
+  transition: box-shadow .3s;
+}
+.activeButton:hover, .activeButton:focus {
+  -webkit-box-shadow: 0 0 0 2px #e5e5e5, 0 0 0 4px #d81406;
+  box-shadow: 0 0 0 2px #e5e5e5, 0 0 0 4px #d81406;
+  -webkit-transition-timing-function: cubic-bezier(0.6, 4, 0.3, 0.8);
+  transition-timing-function: cubic-bezier(0.6, 4, 0.3, 0.8);
+  -webkit-animation: gelatine 0.5s 1;
+  animation: gelatine 0.5s 1;
+}
+
+.activeButton:active {
+  background: #f7655b;
+  -webkit-transition-duration: 0;
+  transition-duration: 0;
+  -webkit-box-shadow: 0 0 0 2px #e5e5e5, 0 0 0 4px #f7655b;
+  box-shadow: 0 0 0 2px #e5e5e5, 0 0 0 4px #f7655b;
+}
+
+/**
+ * $keyframes \ gelatine
+ **/
+@keyframes gelatine {
+  from, to {
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+  }
+
+  25% {
+    -webkit-transform: scale(0.9, 1.1);
+    transform: scale(0.9, 1.1);
+  }
+
+  50% {
+    -webkit-transform: scale(1.1, 0.9);
+    transform: scale(1.1, 0.9);
+  }
+
+  75% {
+    -webkit-transform: scale(0.95, 1.05);
+    transform: scale(0.95, 1.05);
+  }
+
+  from, to {
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+  }
+
+  25% {
+    -webkit-transform: scale(0.9, 1.1);
+    transform: scale(0.9, 1.1);
+  }
+
+  50% {
+    -webkit-transform: scale(1.1, 0.9);
+    transform: scale(1.1, 0.9);
+  }
+
+  75% {
+    -webkit-transform: scale(0.95, 1.05);
+    transform: scale(0.95, 1.05);
+  }
+}
+@-webkit-keyframes gelatine {
+  from, to {
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+  }
+
+  25% {
+    -webkit-transform: scale(0.9, 1.1);
+    transform: scale(0.9, 1.1);
+  }
+
+  50% {
+    -webkit-transform: scale(1.1, 0.9);
+    transform: scale(1.1, 0.9);
+  }
+
+  75% {
+    -webkit-transform: scale(0.95, 1.05);
+    transform: scale(0.95, 1.05);
+  }
+
+  from, to {
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+  }
+
+  25% {
+    -webkit-transform: scale(0.9, 1.1);
+    transform: scale(0.9, 1.1);
+  }
+
+  50% {
+    -webkit-transform: scale(1.1, 0.9);
+    transform: scale(1.1, 0.9);
+  }
+
+  75% {
+    -webkit-transform: scale(0.95, 1.05);
+    transform: scale(0.95, 1.05);
+  }
+}
+
+.hiddenThing {
 }

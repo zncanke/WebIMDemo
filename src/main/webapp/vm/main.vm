@@ -24,8 +24,8 @@
 
   	<div class="ui">
         <div class="fun">
-            <img src="http://cs625730.vk.me/v625730358/1126a/qEjM1AnybRA.jpg">
-            <img class="add" src="http://www.iconpng.com/png/windows8_icons2/plus2_.png">
+            <img id="myhead"src="http://cs625730.vk.me/v625730358/1126a/qEjM1AnybRA.jpg">
+            <img class="add" src="/img/plus.png">
         </div>
 		<div class="left-menu">
 				<form action="#" class="search">
@@ -42,4 +42,16 @@
 	</div>
 
   </body>
+    <script type="text/javascript">
+        $("#myhead").click(function () {
+            $.ajax({
+                type: "GET",
+                url: "/user/detailinfo",
+                data: {email: "$!{fromEmail}"},
+                success: function (result) {
+                    $("#chat").html(result);
+                }
+            });
+        });
+    </script>
 </html>

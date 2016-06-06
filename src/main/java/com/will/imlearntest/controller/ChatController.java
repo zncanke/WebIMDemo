@@ -1,19 +1,15 @@
 package com.will.imlearntest.controller;
 
-import com.will.imlearntest.ListTools.PageModel;
-import com.will.imlearntest.bo.ChatBo;
 import com.will.imlearntest.bo.ChatRecordBo;
-import com.will.imlearntest.vo.BaseResultVo;
+import com.will.imlearntest.bo.UserBo;
 import com.will.imlearntest.vo.ChatRecordVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -22,78 +18,21 @@ public class ChatController {
 
     @Autowired
     private ChatRecordBo chatRecordBo;
-
-    /*@RequestMapping("chat")
-    public String chat(@ModelAttribute("fromUserName") String fromUserName,
-                       @ModelAttribute("toUserName") String toUserName, HttpServletRequest request,
-                       HttpServletResponse response) {
-
-//        System.err.println("chatchat:" + fromUserName + " " + toUserName);
-
-        PageModel<ChatRecordVo> chatRecordPageModel = chatRecordBo.list(fromUserName, toUserName, 0, 10);
-
-//        System.err.println(chatRecordPageModel.getTotal());
-
-        request.setAttribute("pageModel", chatRecordPageModel);
-
-        return "chat/chat";
-    }
-
-    @RequestMapping("chatRecordList")
-    public String chatRecordList(@ModelAttribute("page") int page, @ModelAttribute("limit") int limit,
-                                 @ModelAttribute("fromUserName") String fromUserName,
-                                 @ModelAttribute("toUserName") String toUserName, HttpServletRequest request,
-                                 HttpServletResponse response) {
-        if (page <= 0) {
-            page = 1;
-        }
-
-//        System.err.println("chatlog:" + fromUserName + " " + toUserName);
-
-        PageModel<ChatRecordVo> chatRecordPageModel = chatRecordBo.list(fromUserName, toUserName, (page - 1) * limit,
-                limit);
-        request.setAttribute("pageModel", chatRecordPageModel);
-        return "chat/chatlog";
-    }
-
     @Autowired
-    private ChatBo chatBo;
-
-    @RequestMapping("sendMessage")
-    public @ResponseBody BaseResultVo sendMessage(@ModelAttribute("fromUserName") String fromUserName,
-                                    @ModelAttribute("toUserName") String toUserName,
-                                    @ModelAttribute("content") String content, HttpServletRequest request,
-                                    HttpServletResponse response) {
-        System.err.println("enter sendMessage");
-        chatBo.sendMessage(fromUserName, toUserName, content);
-        return BaseResultVo.success;
-    }
-
-    //ChatController实现新消息监听
-    @RequestMapping("acceptMessage")
-    public @ResponseBody BaseResultVo acceptMessage(@ModelAttribute("fromUserName") String fromUserName,
-                                      @ModelAttribute("toUserName") String toUserName, HttpServletRequest request,
-                                      HttpServletResponse response) throws IOException {
-        boolean acceptMessageFlag = chatBo.acceptMessage(fromUserName, toUserName);
-        BaseResultVo result = null;
-        if (acceptMessageFlag) {
-            result = new BaseResultVo(1, "有新消息");
-        } else {
-            result = new BaseResultVo(0, "没有新消息");
-        }
-
-        return result;
-    }*/
+    private UserBo userBo;
 
     @RequestMapping("chatbox")
-    public String chatbox( @ModelAttribute("toUserName") String toUserName,
+    public String chatbox( @ModelAttribute("toEmail") String toEmail,
                            HttpServletRequest request,
                            HttpServletResponse response) {
-        String fromUserName = (String)request.getSession().getAttribute("fromUserName");
-        request.getSession().setAttribute("toUserName", toUserName);
-        List<ChatRecordVo> records = chatRecordBo.recordBetween(fromUserName, toUserName);
+//        System.out.println(toEmail);
+        String fromEmail = (String)request.getSession().getAttribute("fromEmail");
+        request.getSession().setAttribute("toEmail", toEmail);
+        request.getSession().setAttribute("fromUsername", userBo.getUsernameByEmail(fromEmail));
+        System.out.println((String)request.getSession().getAttribute("fromUsername"));
+        request.getSession().setAttribute("toUsername", userBo.getUsernameByEmail(toEmail));
+        List<ChatRecordVo> records = chatRecordBo.recordBetween(fromEmail, toEmail);
         request.getSession().setAttribute("records", records);
-        System.out.println(records.size());
         return "/chatbox";
     }
 

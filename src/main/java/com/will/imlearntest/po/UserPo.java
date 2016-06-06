@@ -8,6 +8,7 @@ public class UserPo {
     private String username;
     private String password;
     private int status;
+    private String email;
 
     public void setId(int id) {
         this.id = id;
@@ -32,5 +33,11 @@ public class UserPo {
     }
     public int getStatus() {
         return status;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getEmail() {
+        return this.email;
     }
 }

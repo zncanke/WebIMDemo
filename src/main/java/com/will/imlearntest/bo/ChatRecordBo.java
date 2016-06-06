@@ -1,6 +1,5 @@
 package com.will.imlearntest.bo;
 
-import com.will.imlearntest.ListTools.PageModel;
 import com.will.imlearntest.dao.ChatRecordDao;
 import com.will.imlearntest.po.ChatRecordPo;
 import com.will.imlearntest.vo.ChatRecordVo;
@@ -19,9 +18,9 @@ public class ChatRecordBo {
     @Autowired
     private ChatRecordDao chatRecordDao;
 
-    public List<ChatRecordVo> recordBetween(String fromUserName, String toUserName) {
+    public List<ChatRecordVo> recordBetween(String fromEmail, String toEmail) {
 //        System.err.println("Before DAO");
-        List<ChatRecordPo> list = chatRecordDao.recordBetween(fromUserName, toUserName);
+        List<ChatRecordPo> list = chatRecordDao.recordBetween(fromEmail, toEmail);
 
 
 //        System.err.println("After DAO"+total);
@@ -37,13 +36,13 @@ public class ChatRecordBo {
         return chatRecordVoList;
     }
 
-    public boolean addChat(String fromUsername, String toUsername, String content) {
+    public boolean addChat(String fromEmail, String toEmail, String content) {
 //        System.err.println("addChat1");
         ChatRecordPo chatRecordPo = new ChatRecordPo();
 //        System.err.println("addChat2");
-        chatRecordPo.setFromUserName(fromUsername);
+        chatRecordPo.setfromEmail(fromEmail);
 //        System.err.println("addChat3");
-        chatRecordPo.setToUserName(toUsername);
+        chatRecordPo.settoEmail(toEmail);
 //        System.err.println("addChat4");
         chatRecordPo.setContent(content);
 //        System.err.println("before insert");

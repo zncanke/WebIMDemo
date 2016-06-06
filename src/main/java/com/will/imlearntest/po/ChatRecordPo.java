@@ -10,8 +10,8 @@ public class ChatRecordPo {
     private Date createTime;
     private Date updateTime;
     private int version;
-    private String fromUserName;
-    private String toUserName;
+    private String fromEmail;
+    private String toEmail;
     private String content;
 
     public int getId() {
@@ -35,17 +35,17 @@ public class ChatRecordPo {
     public int getVersion() {
         return version;
     }
-    public void setFromUserName(String fromUserName) {
-        this.fromUserName = fromUserName;
+    public void setfromEmail(String fromEmail) {
+        this.fromEmail = fromEmail;
     }
-    public String getFromUserName() {
-        return fromUserName;
+    public String getfromEmail() {
+        return fromEmail;
     }
-    public void setToUserName(String toUserName) {
-        this.toUserName = toUserName;
+    public void settoEmail(String toEmail) {
+        this.toEmail = toEmail;
     }
-    public String getToUserName() {
-        return toUserName;
+    public String gettoEmail() {
+        return toEmail;
     }
     public void setContent(String content) {
         this.content = content;

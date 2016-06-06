@@ -28,7 +28,7 @@
             <div class="profile__fields">
                 <div class="field">
                     <input type="text" id="fieldUser" class="input" required pattern=.*\S.* />
-                    <label for="fieldUser" class="label">Username</label>
+                    <label for="fieldUser" class="label">Email</label>
                 </div>
                 <div class="field">
                     <input type="password" id="fieldPassword" class="input" required pattern=.*\S.* />
@@ -47,12 +47,12 @@
 <script src="/js/login/index.js"></script>
 <script type="text/javascript">
     function check() {
-        var username = document.getElementById('fieldUser').value;
+        var email = document.getElementById('fieldUser').value;
         var password = document.getElementById('fieldPassword').value;
         $.ajax({
             type: "POST",
             url: "/user/login",
-            data:{username:username, password:password},
+            data:{email:email, password:password},
             success: function(result){
 //                alert("succeeded");
                 if (result.status == 200) {

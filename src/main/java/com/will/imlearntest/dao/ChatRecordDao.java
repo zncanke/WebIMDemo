@@ -10,10 +10,10 @@ import java.util.List;
 public interface ChatRecordDao {
     public int insert(ChatRecordPo chatRecordPo);
 
-    public List<ChatRecordPo> list(@Param("fromUserName") String fromUserName, @Param("toUserName") String toUserName,
-                                   @Param("offset") int offset, @Param("limit") int limit);
+//    public List<ChatRecordPo> list(@Param("fromUserName") String fromUserName, @Param("toUserName") String toUserName,
+//                                   @Param("offset") int offset, @Param("limit") int limit);
 
     public Integer count(@Param("fromUserName") String fromUserName, @Param("toUserName") String toUserName);
-    public List<ChatRecordPo> recordBetween(@Param("fromUserName") String fromUserName,
-                                            @Param("toUserName") String toUserName);
+    public List<ChatRecordPo> recordBetween(@Param("fromEmail") String fromEmail,
+                                            @Param("toEmail") String toEmail);
 }

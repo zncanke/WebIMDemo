@@ -4,18 +4,19 @@ function claerResizeScroll() {
     return $(".messages").getNiceScroll(0).doScrollTop(999999, 999);
 };
 
-function insertI(fromUserName, toUserName) {
+function insertI(fromEmail, toEmail, fromUsername, toUsername) {
   var innerText;
   innerText = $.trim($("#texxt").val());
   if (innerText !== "") {
-      send(JSON.stringify({fromUserName: fromUserName, toUserName: toUserName, content: innerText}));
+      send(JSON.stringify({fromEmail: fromEmail, toEmail: toEmail, content: innerText,
+                            fromUsername: fromUsername, toUsername: toUsername}));
   }
   if (innerText !== "") {
     $(".messages").append("" +
         "<li class=\"i\">" +
         "<div class=\"head\">" +
         "<span class=\"time\">" + (new Date().getHours()) + ":" + (new Date().getMinutes()) + " AM, Today</span>" +
-        "<span class=\"name\"> "+ fromUserName +" </span>" +
+        "<span class=\"name\"> "+ fromUsername +" </span>" +
         "</div>" +
         "<div class=\"message\">" + innerText + "</div>" +
         "</li>");
@@ -40,10 +41,21 @@ function insertI(fromUserName, toUserName) {
   };
 
   $(document).ready(function() {
-    $(".list-friends").niceScroll(conf);
+      $(".list-friends").niceScroll(conf);
+      $(".add").click(function() {
+          $.ajax({
+            type: "GET",
+             url: "/friend/searchInterface",
+            success: function (result) {
+                $("#chat").html(result);
+            }
+          });
+      });
   });
 
 }).call(this);
+
+
 
 var websocket = null;
 
@@ -89,10 +101,11 @@ function setMessageInnerHTML(innerHTML){
     document.getElementById('messages').innerHTML +=
         "<li class=\"friend-with-a-SVAGina\">" +
             "<div class=\"head\"> <span class=\"time\">10:13 AM, Today</span>" +
-                "<span class=\"name\">" + jsonObject.fromUserName + "</span>" +
+                "<span class=\"name\">" + jsonObject.fromUsername + "</span>" +
             "</div>" +
             "<div class=\"message\">" + jsonObject.content + "</div>" +
         "</li>"
+    claerResizeScroll();
 }
 
 //关闭连接

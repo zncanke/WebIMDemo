@@ -8,9 +8,9 @@
     </sql>
     <insert id="insert" parameterType="ChatRecordPo">
         insert into CHAT_RECORD(
-        CREATE_TIME, UPDATE_TIME, VERSION,FROM_USER_NAME,TO_USER_NAME,CONTENT
+        CREATE_TIME, UPDATE_TIME, VERSION,fromEmail,toEmail,CONTENT
         ) values (
-        now(), now(), 0, #{fromUserName}, #{toUserName}, #{content}
+        now(), now(), 0, #{fromEmail}, #{toEmail}, #{content}
         )
     </insert>
     <select id="list" resultType="ChatRecordPo">
@@ -34,8 +34,8 @@
     </select>
     <select id="recordBetween" resultType="ChatRecordPo">
         select * from chat_record
-        where (from_user_name = #{fromUserName} and to_user_name = #{toUserName})
-            or (from_user_name = #{toUserName} and to_user_name = #{fromUserName})
+        where (fromEmail= #{fromEmail} and toEmail = #{toEmail})
+            or (fromEmail = #{toEmail} and toEmail = #{fromEmail})
         order by id desc
         limit 5
     </select>
