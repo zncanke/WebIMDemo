@@ -2,9 +2,10 @@ package com.will.imlearntest.vo;
 
 import com.will.imlearntest.po.ChatRecordPo;
 
+import java.util.Comparator;
 import java.util.Date;
 
-public class ChatRecordVo {
+public class ChatRecordVo{
     private int id;
     private Date createTime;
     private Date updateTime;
@@ -32,6 +33,18 @@ public class ChatRecordVo {
         this.toEmail = chatRecordPo.getToEmail();
         this.updateTime = chatRecordPo.getUpdateTime();
         this.version = chatRecordPo.getVersion();
+    }
+
+    public boolean equal(ChatRecordVo chatRecordVo) {
+        if (!createTime.equals(chatRecordVo.getCreateTime()))
+            return false;
+        if (!fromEmail.equals(chatRecordVo.getFromEmail()))
+            return false;
+        if (!toEmail.equals(chatRecordVo.getToEmail()))
+            return false;
+        if (!content.equals(chatRecordVo.getContent()))
+            return false;
+        return true;
     }
 
     public void setId(int id) {

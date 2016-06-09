@@ -44,6 +44,7 @@ public class UserController {
         if (userBo.login(email, password)) {
             if (oEmail != null)
                 userBo.userLogout(oEmail);
+            request.getSession().removeAttribute("recentList");
             refreshRecent(request);
             return BaseResultVo.success;
         } else
