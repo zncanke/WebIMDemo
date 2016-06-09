@@ -6,9 +6,9 @@
         select * from user
         where email = #{email} and password = #{password}
     </select>
-    <select id="friendList" resultType="FriendshipPo">
-        select * from friendship
-        where userId = ${userId};
+    <select id="friendList" resultType="Integer">
+        select friendId from friendship
+        where userId = #{userId} and groupName = #{groupName};
     </select>
     <select id="findUserByEmail" resultType="UserPo">
         select * from user
@@ -34,4 +34,25 @@
         username = #{username}
         where email = #{email}
     </update>
+    <select id="searchUser" resultType="UserPo">
+        select * from user
+        where email like '%${userCondition}%' or username like '%${userCondition}%'
+    </select>
+    <select id="getGroupList" resultType="String">
+        select groupName from groups
+        where userId = #{userId}
+    </select>
+    <insert id="addGroup">
+        insert into groups values(
+        #{userId}, #{groupName})
+    </insert>
+    <update id="setUserStatus">
+        update user SET
+        status = #{status}
+        where email = #{email}
+    </update>
+    <select id="getUnreadFriendList" resultType="String">
+        select fromEmail from unread_message
+        where toEmail = #{toEmail}
+    </select>
 </mapper>

@@ -13,15 +13,7 @@
         now(), now(), 0, #{fromEmail}, #{toEmail}, #{content}
         )
     </insert>
-    <select id="list" resultType="ChatRecordPo">
-        select * from CHAT_RECORD
-        where 1 = 1
-        <if test="fromUserName != null &amp;&amp; toUserName != null">
-            and (from_user_name = #{fromUserName} and to_user_name = #{fromUserName}) or (from_user_name = #{toUserName} or to_user_name = #{toUserName})
-        </if>
-        order by id desc
-        limit #{offset}, #{limit}
-    </select>
+
     <select id="count" resultType="int">
         select count(*) from CHAT_RECORD
         where 1 = 1
@@ -39,4 +31,17 @@
         order by id desc
         limit 5
     </select>
+    <insert id="addUnreadMessage" parameterType="UnreadMessagePo">
+        insert into unread_message values(
+        #{type}, #{fromEmail}, #{toEmail}, #{content}, now())
+    </insert>
+    <select id="unreadBetween" resultType="UnreadMessagePo">
+        select * from unread_message
+        where fromEmail = #{fromEmail} and toEmail = #{toEmail}
+        order by createTime
+    </select>
+    <delete id="removeUnreadBetween">
+        delete from unread_message
+        where fromEmail = #{fromEmail} and toEmail = #{toEmail}
+    </delete>
 </mapper>

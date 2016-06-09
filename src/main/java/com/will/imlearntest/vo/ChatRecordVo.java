@@ -22,12 +22,14 @@ public class ChatRecordVo {
      */
     private String content;
 
+    public ChatRecordVo(){}
+
     public ChatRecordVo(ChatRecordPo chatRecordPo) {
         this.content = chatRecordPo.getContent();
         this.createTime = chatRecordPo.getCreateTime();
-        this.fromEmail = chatRecordPo.getfromEmail();
+        this.fromEmail = chatRecordPo.getFromEmail();
         this.id = chatRecordPo.getId();
-        this.toEmail = chatRecordPo.gettoEmail();
+        this.toEmail = chatRecordPo.getToEmail();
         this.updateTime = chatRecordPo.getUpdateTime();
         this.version = chatRecordPo.getVersion();
     }

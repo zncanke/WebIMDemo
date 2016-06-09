@@ -1,0 +1,18 @@
+<!--<li>
+    <img width="50" height="50" src="http://lorempixel.com/50/50/people/0">
+    <div class="info">
+        <div class="user">Name Fam</div>
+        <div class="status off">left 23 min age</div>
+    </div>
+    <a class="addBtn">add</a>
+</li>-->
+#foreach($item in $searchUserResult)
+    <li>
+        <img width="50" height="50" src="http://lorempixel.com/50/50/people/0">
+        <div class="info">
+            <div class="user">$item.username</div>
+            <div class="status off">$item.email</div>
+        </div>
+        <a class="addBtn">add</a>
+    </li>
+#end

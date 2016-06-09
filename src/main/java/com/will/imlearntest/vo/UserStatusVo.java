@@ -22,6 +22,7 @@ public class UserStatusVo {
      */
     private Date lastHeartBeat;
     private String email;
+    private boolean haveUnread;
 
     public void setUsername(String username) {
         this.username = username;
@@ -47,4 +48,11 @@ public class UserStatusVo {
     public String getEmail() {
         return email;
     }
+    public void setHaveUnread(boolean haveUnread) {
+        this.haveUnread = haveUnread;
+    }
+    public boolean getHaveUnread() {
+        return this.haveUnread;
+    }
+
 }

@@ -23,26 +23,22 @@
 </div>
 
 <script type="text/javascript">
+    //save按键点击动作
     $("#activeButton").click(function () {
         var thename = document.getElementById("name").value;
         var thesign = document.getElementById("sign").value;
         var thegender = $("input[name='sex']:checked").val();
-//        alert(thesign);
-        $.ajax({
-            type: "GET",
-            url: "/user/saveDetailinfo",
-            data: {thename:thename, thesign:thesign, thegender:thegender},
-            success: function (result) {
-                alert($!{fromUsername});
-                $("#chat").html("");
-            }
-        });
+        var data = {type:"updatePersonalInfo", thename:thename, thesign:thesign, thegender:thegender};
+        send(JSON.stringify(data));
+        $("#chat").html("");
     });
+    //修改用户名
     $("#name").click(function () {
         $(this).attr("readonly", false);
     });
+    //修改个性签名
     $("#sign").click(function () {
         $(this).attr("readonly", false);
-    })
+    });
 </script>
 

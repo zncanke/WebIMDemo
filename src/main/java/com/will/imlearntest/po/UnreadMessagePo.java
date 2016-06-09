@@ -3,37 +3,27 @@ package com.will.imlearntest.po;
 import java.util.Date;
 
 /**
- * Created by willl on 5/25/16.
+ * Created by willl on 6/8/16.
  */
-public class ChatRecordPo {
-    private int id;
+public class UnreadMessagePo {
+    private int type;
     private Date createTime;
-    private Date updateTime;
-    private int version;
     private String fromEmail;
     private String toEmail;
     private String content;
 
-    public int getId() {
-        return id;
+
+    public void setType(int type) {
+        this.type = type;
     }
-    public void setId(int id) {
-        this.id = id;
+    public int getType() {
+        return this.type;
     }
     public Date getCreateTime() {
         return createTime;
     }
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-    public void setVersion(int version) {
-        this.version = version;
-    }
-    public int getVersion() {
-        return version;
     }
     public void setFromEmail(String fromEmail) {
         this.fromEmail = fromEmail;

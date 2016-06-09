@@ -16,7 +16,7 @@ body {
   background-image: linear-gradient(to bottom left, rgba(255, 255, 255, 0.6), transparent 60%, rgba(0, 0, 0, 0.6)), linear-gradient(to top left, #a0d3e4, #97d1e7);
 }
 .ui {
-  margin: 5% auto;
+  margin: 2% auto;
   width: 745px;
   height: 555px;
   background-color: #fff;
@@ -36,7 +36,7 @@ body {
 .ui .fun{
   height: 100%;
   width: 8%;
-  background: #6e6a7d;
+  background: #9f2a04;
   position: relative;
 }
 .ui .fun img {
@@ -44,6 +44,31 @@ body {
   left: 12%;
   top: 3%;
   border-radius: 50%;
+  width: 80%;
+  height: 8%;
+}
+.ui .fun .exit {
+  position: absolute;
+  top: 80%;
+  left: 12%;
+  border-radius: 50%;
+  width: 80%;
+  height: 8%;
+}
+.ui .fun .friends {
+  position: absolute;
+  top: 30%;
+  left: 12%;
+  border-radius: 50%;
+  width: 80%;
+  height: 8%;
+}
+.ui .fun .recent {
+  position: absolute;
+  top: 20%;
+  left: 12%;
+  /*border-radius: 50%;*/
+  border-radius: 0%;
   width: 80%;
   height: 8%;
 }
@@ -74,11 +99,20 @@ body {
   background-color: #696c75;
   border-radius: 3px;
   padding: 10px;
-  width: 90%;
+  width: 80%;
   box-sizing: border-box;
-  margin: 15px 10px;
+  margin: 15px 6px;
   color: #fff;
 }
+
+.ui .addGroup {
+  width: 11%;
+  height: 11%;
+  /*float: right;*/
+  /*padding-top: 2%;*/
+  /*margin-top: -26%;*/
+}
+
 .ui .left-menu {
   width: 29%;
   box-sizing: content-box;
@@ -117,7 +151,7 @@ body {
   vertical-align: 25px;
 }
 .ui .avatar > img,
-.ui .list-friends img {
+.ui .list-friends div img {
   border-radius: 50%;
   border: 3px solid #696c75;
 }
@@ -126,37 +160,43 @@ body {
   font-size: 13px;
   height: 88%;
 }
-.ui .list-friends img {
+.ui .list-friends div img {
   margin: 5px;
 }
-.ui .list-friends > li {
+.ui .list-friends div > li {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin: 0 0 10px 10px;
+  /*margin: 0 0 10px 10px;*/
+  padding: 0 0 10px 10px;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
 }
-.ui .list-friends .info {
+
+.ui .list-friends div > li:hover {
+  background: #787b86 !important;
+}
+
+.ui .list-friends div .info {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
-.ui .list-friends .user {
+.ui .list-friends div .user {
   color: #fff;
   margin-top: 12px;
 }
-.ui .list-friends .status {
+.ui .list-friends div .status {
   position: relative;
   margin-left: 14px;
   color: #a8adb3;
 }
-.ui .list-friends .off:after,
-.ui .list-friends .on:after {
+.ui .list-friends div .off:after,
+.ui .list-friends div .on:after {
   content: '';
   left: -12px;
   top: 8px;
@@ -165,12 +205,25 @@ body {
   width: 7px;
   border-radius: 50%;
 }
-.ui .list-friends .off:after {
+.ui .list-friends div .off:after {
   background: #fd8064;
 }
-.ui .list-friends .on:after {
+.ui .list-friends div .on:after {
   background: #62bf6e;
 }
+
+.ui .list-friends .groupName {
+  padding: 2px 5px;
+  color: #fff;
+  font-size: 120%;
+}
+.ui .list-friends .groupName .arrow{
+  width: 8%;
+  height: 4%;
+  border: none;
+  margin: 0 0;
+}
+
 .ui .top {
   height: 70px;
 }
@@ -626,4 +679,17 @@ body {
 }
 
 .hiddenThing {
+}
+
+/*hint point*/
+.hintPoint {
+  display:block;
+  background:transparent;
+  border-radius:50%;
+  width: 12px;
+  height:12px;
+  margin-right: 3%;
+  margin-top: 11%;
+  /*position: absolute;*/
+  float:right;
 }

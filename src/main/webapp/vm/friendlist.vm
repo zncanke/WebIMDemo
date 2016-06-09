@@ -1,25 +1,42 @@
-#foreach($item in ${friendList})
-    <li>
-        <img width="50" height="50" src="http://cs625730.vk.me/v625730358/1126a/qEjM1AnybRA.jpg">
-        <div class="info">
-            <div class="user">$item.username</div>
-            #if($item.status == 1)
-                <div class="status on"> online</div>
-            #else
-                <div class="status off"> offline</div>
-            #end
-            <div class="hiddenThing" hidden="hidden">$item.email</div>
-        </div>
-    </li>
+#foreach($item in ${friendList.keySet()})
+    <div class = "groupName">
+        <img src="img/off.png" class="arrow">
+        <label>$item</label>
+    </div>
+    <div style="display: none;">
+        #foreach($data in ${friendList.get($item).entrySet()})
+        <li>
+            <img width="50" height="50" src="http://cs625730.vk.me/v625730358/1126a/qEjM1AnybRA.jpg">
+            <div class="info">
+                <div class="user">$data.value.username</div>
+                #if($data.value.status == 1)
+                    <div class="status on"> online</div>
+                #else
+                    <div class="status off"> offline</div>
+                #end
+                <div class="hiddenThing" hidden="hidden">$data.value.email</div>
+            </div>
+        </li>
+        #end
+    </div>
 #end
 
 
 <script type="text/javascript">
-    $("#list-friends li").click(function(){
+    $("#list-friends .groupName").click(function () {
+        $(this).next("div").slideToggle("normal");
+        if ($(this).find(".arrow")[0].src.indexOf("off.png") >= 0)
+            $(this).find(".arrow").attr("src", "img/on.png");
+        else
+            $(this).find(".arrow").attr("src", "img/off.png");
+    });
+    $("#list-friends div li").click(function(){
+        $("#list-friends div").find("li").css("background-color", "transparent");
+        $(this).css("background-color", "#6b6e77");
         var toEmail = $(this).find(".hiddenThing")[0].innerText;
 //        alert(toEmail);
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: "/chat/chatbox",
             data: {toEmail: toEmail},
             success: function(result) {

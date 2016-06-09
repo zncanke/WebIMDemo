@@ -2,6 +2,7 @@ package com.will.imlearntest.bo;
 
 import com.will.imlearntest.dao.ChatRecordDao;
 import com.will.imlearntest.po.ChatRecordPo;
+import com.will.imlearntest.po.UnreadMessagePo;
 import com.will.imlearntest.vo.ChatRecordVo;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,20 +38,43 @@ public class ChatRecordBo {
     }
 
     public boolean addChat(String fromEmail, String toEmail, String content) {
-//        System.err.println("addChat1");
         ChatRecordPo chatRecordPo = new ChatRecordPo();
-//        System.err.println("addChat2");
-        chatRecordPo.setfromEmail(fromEmail);
-//        System.err.println("addChat3");
-        chatRecordPo.settoEmail(toEmail);
-//        System.err.println("addChat4");
+        chatRecordPo.setFromEmail(fromEmail);
+        chatRecordPo.setToEmail(toEmail);
         chatRecordPo.setContent(content);
-//        System.err.println("before insert");
         int insertRowNum = chatRecordDao.insert(chatRecordPo);
-//        System.err.println("after insert");
         if (insertRowNum != 1) {
             return false;
         }
         return true;
+    }
+
+    public boolean addUnreadMessage(int type, String fromEmail, String toEmail, String content) {
+        UnreadMessagePo unreadMessage = new UnreadMessagePo();
+        unreadMessage.setType(type);
+        unreadMessage.setFromEmail(fromEmail);
+        unreadMessage.setToEmail(toEmail);
+        unreadMessage.setContent(content);
+        int ret = chatRecordDao.addUnreadMessage(unreadMessage);
+        if (ret == 1)
+            return true;
+        else
+            return false;
+    }
+
+    public List<ChatRecordVo> unreadBetween(String fromEmail, String toEmail) {
+        List<UnreadMessagePo> list = chatRecordDao.unreadBetween(fromEmail, toEmail);
+        List<ChatRecordVo> ret = new ArrayList<ChatRecordVo>();
+        ret.clear();
+        for (UnreadMessagePo item : list) {
+            ChatRecordVo c = new ChatRecordVo();
+            c.setContent(item.getContent());
+            c.setCreateTime(item.getCreateTime());
+            c.setFromEmail(item.getFromEmail());
+            c.setToEmail(item.getToEmail());
+            ret.add(c);
+        }
+        chatRecordDao.removeUnreadBetween(fromEmail, toEmail);
+        return ret;
     }
 }
