@@ -11,8 +11,17 @@
         <img width="50" height="50" src="http://lorempixel.com/50/50/people/0">
         <div class="info">
             <div class="user">$item.username</div>
-            <div class="status off">$item.email</div>
+            <div class="status">$item.email</div>
         </div>
         <a class="addBtn">add</a>
     </li>
 #end
+
+<script type="text/javascript">
+    $(".addBtn").click(function () {
+        var toEmail = $(this).parent().find(".status")[0].innerText;
+//        alert(email);
+        send(JSON.stringify({type: "friendApply", toEmail: toEmail}));
+        $(this).parent().remove();
+    });
+</script>

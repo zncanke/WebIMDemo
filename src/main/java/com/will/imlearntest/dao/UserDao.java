@@ -2,6 +2,7 @@ package com.will.imlearntest.dao;
 
 import com.will.imlearntest.po.FriendshipPo;
 import com.will.imlearntest.po.PersonalInfoPo;
+import com.will.imlearntest.po.UnreadMessagePo;
 import com.will.imlearntest.po.UserPo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -26,5 +27,34 @@ public interface UserDao {
                         @Param("groupName") String groupName);
     public int setUserStatus(@Param("email") String email,
                              @Param("status") int status);
-    public List<String> getUnreadFriendList(@Param("toEmail") String toEmail);
+    public List<UnreadMessagePo> getUnreadFriendList(@Param("toEmail") String toEmail);
+    public Integer isFriend(@Param("userId") int userId,
+                            @Param("friendId") int friendId);
+    public int buildFriendship(@Param("userId") int userId,
+                               @Param("friendId") int friendId,
+                               @Param("groupName") String groupName);
+    public void moveGroup(@Param("userId") int userId,
+                          @Param("friendId") int friendId,
+                          @Param("groupName") String groupName);
+    public String getNowGroup(@Param("userId") int userId,
+                              @Param("friendId") int friendId);
+    public int removeGroup(@Param("userId") int userId,
+                           @Param("groupName") String groupName);
+    public int updateGroupName(@Param("userId") int userId,
+                               @Param("oriName") String oriName,
+                               @Param("newName") String newName);
+    public int updateGroupNameInFriendship(@Param("userId") int userId,
+                                           @Param("oriName") String oriName,
+                                           @Param("newName") String newName);
+    public int deleteFriend(@Param("userId") int userId,
+                            @Param("friendId") int friendId);
+
+    public int register(@Param("username") String username,
+                        @Param("email") String email,
+                        @Param("password") String password,
+                        @Param("status") int status);
+    public int addPersonalInfo(@Param("username") String username,
+                               @Param("gender") int gender,
+                               @Param("email") String email,
+                               @Param("signature") String signature);
 }

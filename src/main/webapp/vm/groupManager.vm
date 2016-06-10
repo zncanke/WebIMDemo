@@ -1,0 +1,111 @@
+<img src="img/newgroup.png" width="30" height="30" class="new-group">
+<div id="group-list">
+    #foreach($item in $friendList.keySet())
+    <div class="groupItem">
+        <img class="cancel" width="20" height="20" src="img/cancel.png">
+        <input class="group-name" readonly="readonly" value="$item">
+        <a class="addBtn">save</a>
+        <div class="hiddenThing" hidden="hidden">$item</div>
+    </div>
+    #end
+</div>
+
+<script type="text/javascript">
+    var conf = {
+        cursorcolor: "#696c75",
+        cursorwidth: "4px",
+        cursorborder: "none"
+    };
+    $("#group-list").niceScroll(conf);
+    $(".new-group").click(function () {
+         var newGroup = prompt("Please input the name of new group");
+         if ($.trim(newGroup) == "")
+             return;
+         $.ajax({
+             type: "POST",
+             url: "/user/addGroup",
+             data: {newGroup: newGroup},
+             success: function (result) {
+                 if (result.status == 200) {
+                     $.ajax({
+                         type: "GET",
+                         url: "/user/friendList",
+                         success: function (result) {
+                             $("#list-friends").html(result);
+                             $.ajax({
+                                 type: "GET",
+                                 url: "/user/groupManager",
+                                 success: function (result) {
+                                     $("#chat").html(result);
+                                 }
+                             });
+                         }
+                     });
+                 } else {
+                     alert(result.message);
+                 }
+             }
+         });
+    });
+    $(".group-name").click(function () {
+        var name = $(this).val();
+        if (name != "default")
+            $(this).attr("readonly", false);
+    });
+    $(".cancel").click(function () {
+        var name = $(this).parent().find(".group-name").val();
+//        alert(name);
+        if (name == "default") {
+            alert("Sorry, you can not remove default group");
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "/user/removeGroup",
+                data: {groupName: name},
+                success: function (result) {
+                    if (result.status == 200) {
+                        $.ajax({
+                            type: "GET",
+                            url: "/user/friendList",
+                            success: function (result) {
+                                $("#list-friends").html(result);
+                                $.ajax({
+                                    type: "GET",
+                                    url: "/user/groupManager",
+                                    success: function (result) {
+                                        $("#chat").html(result);
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        alert(result.message);
+                    }
+                }
+            });
+        }
+    });
+    $(".addBtn").click(function () {
+        var newName = $.trim($(this).parent().find(".group-name").val());
+        var oriName = $(this).parent().find(".hiddenThing")[0].innerText;
+//        alert(newName);
+        if (newName == "") {
+            alert("The group name can not be empty or just spaces");
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "/user/updateGroupName",
+                data: {oriName: oriName, newName: newName},
+                success: function () {
+                    $.ajax({
+                        type: "GET",
+                        url: "/user/friendList",
+                        success: function (result) {
+                            $("#list-friends").html(result);
+                        }
+                    });
+                }
+            });
+        }
+    });
+</script>

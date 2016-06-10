@@ -1,4 +1,7 @@
 <div class="detailinfo">
+    #if (${fromEmail} != ${detailEmail})
+    <i id="deleteFriend" class="fa fa-close" style="color:#696c75;"> delete this friend</i>
+    #end
     <img class="head" src="http://lorempixel.com/50/50/people/99">
     <input id="name" class="name" type="text" readonly=true value="$personalInfoVo.username">
     <textarea id="sign" class="signature" type="text" readonly=true>$personalInfoVo.signature</textarea>
@@ -19,6 +22,19 @@
             <input type="radio" name="sex" id="female" value="female" checked="checked"/>
         #end
     </form>
+    #if (${fromEmail} != ${detailEmail})
+        <div class="groupChoise">
+            <label for="groupChoise">Group:</label>
+            <select id="groupChoise">
+                <option value="$nowGroup">$nowGroup</option>
+                #foreach ($item in $friendList.keySet())
+                    #if ($nowGroup != $item)
+                    <option value="$item">$item</option>
+                    #end
+                #end
+            </select>
+        </div>
+    #end
     <a class="activeButton" id="activeButton">Save</a>
 </div>
 
@@ -28,7 +44,8 @@
         var thename = document.getElementById("name").value;
         var thesign = document.getElementById("sign").value;
         var thegender = $("input[name='sex']:checked").val();
-        var data = {type:"updatePersonalInfo", thename:thename, thesign:thesign, thegender:thegender};
+        var thegroup = $("#groupChoise").val();
+        var data = {type:"updatePersonalInfo", thename:thename, thesign:thesign, thegender:thegender, thegroup: thegroup};
         send(JSON.stringify(data));
         $("#chat").html("");
     });
@@ -39,6 +56,12 @@
     //修改个性签名
     $("#sign").click(function () {
         $(this).attr("readonly", false);
+    });
+    $("#deleteFriend").click(function () {
+        var email = $(this).parent().find(".others").val();
+//        alert(email);
+        send(JSON.stringify({type:"deleteFriend", toEmail: email}));
+        $("#chat").html("");
     });
 </script>
 

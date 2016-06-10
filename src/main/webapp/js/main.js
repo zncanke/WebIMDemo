@@ -61,32 +61,19 @@ function insertI(fromEmail, toEmail, fromUsername, toUsername) {
       });
       //添加分组点击动作
       $("#addGroup").click(function () {
-          var newGroup = prompt("Please input the name of new group");
-          if (newGroup == "")
-              return;
           $.ajax({
               type: "POST",
-              url: "/user/addGroup",
-              data: {newGroup: newGroup},
+              url: "/user/groupManager",
               success: function (result) {
-                  if (result.status == 200) {
-                      $.ajax({
-                          type: "GET",
-                          url: "/user/friendlist",
-                          success: function (result) {
-                              $("#list-friends").html(result);
-                          }
-                      });
-                  } else {
-                      alert(result.message);
-                  }
+                  $("#chat").html(result);
               }
           });
+
       });
 
       $("#myhead").click(function () {
           $.ajax({
-              type: "GET",
+              type: "POST",
               url: "/user/detailinfo",
               data: {email: "self"},
               success: function (result) {

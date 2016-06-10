@@ -6,7 +6,7 @@
         <div class="name">$!{toUsername}</div>
         <div class="count">already 1 902 messages</div>
     </div>
-    <i class="fa fa-star"></i>
+    <i class="fa fa-cog"></i>
 </div>
 <ul class="messages" id="messages">
     #foreach($item in ${records})
@@ -48,4 +48,15 @@
         }
     }
     claerResizeScroll();
+    $(".top i").click(function () {
+//        alert("clicked");
+        $.ajax({
+            type: "POST",
+            url: "/user/detailinfo",
+            data: {email: "$!{toEmail}"},
+            success: function (result) {
+                $("#chat").html(result);
+            }
+        });
+    });
 </script>

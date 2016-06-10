@@ -1,5 +1,6 @@
 package com.will.imlearntest.controller;
 
+import com.sun.tracing.dtrace.ModuleAttributes;
 import com.will.imlearntest.bo.ChatRecordBo;
 import com.will.imlearntest.bo.UserBo;
 import com.will.imlearntest.vo.ChatRecordVo;
@@ -29,6 +30,12 @@ public class ChatController {
                            HttpServletRequest request,
                            HttpServletResponse response) {
         request.getSession().setAttribute("boxStatus", toEmail);
+        if (toEmail.equals("systemInfo@sys.com")) {
+            String email = (String)request.getSession().getAttribute("fromEmail");
+            Map<String, UserStatusVo> applyList = chatRecordBo.applyList(email);
+            request.getSession().setAttribute("applyList", applyList);
+            return "sysinfo";
+        }
         Map<String, UserStatusVo> list = (Map<String, UserStatusVo>)request.getSession().getAttribute("recentList");
         if (list.get(toEmail) == null) {
             UserStatusVo u = userBo.getUserByEmail(toEmail);
@@ -59,5 +66,20 @@ public class ChatController {
             res = records;
         request.getSession().setAttribute("records", res);
         return "/chatbox";
+    }
+
+    @RequestMapping("removeApply")
+    public void removeApply(@ModelAttribute("email") String email,
+                            HttpServletRequest request,
+                            HttpServletResponse response) {
+        Map<String, UserStatusVo> list = (Map<String, UserStatusVo>)request.getSession().getAttribute("applyList");
+
+        list.remove(email);
+        if (list.isEmpty()) {
+            Map<String, UserStatusVo> l = (Map<String, UserStatusVo>)request.getSession().getAttribute("recentList");
+            l.get("systemInfo@sys.com").setHaveUnread(false);
+        }
+        String fromEmail = (String)request.getSession().getAttribute("fromEmail");
+        chatRecordBo.removeApply(email, fromEmail);
     }
 }

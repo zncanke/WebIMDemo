@@ -3,6 +3,7 @@ package com.will.imlearntest.bo;
 import com.will.imlearntest.dao.UserDao;
 import com.will.imlearntest.po.FriendshipPo;
 import com.will.imlearntest.po.PersonalInfoPo;
+import com.will.imlearntest.po.UnreadMessagePo;
 import com.will.imlearntest.po.UserPo;
 import com.will.imlearntest.vo.PersonalInfoVo;
 import com.will.imlearntest.vo.UserStatusVo;
@@ -20,8 +21,6 @@ public class UserBo {
 
     @Autowired
     private UserDao userDao;
-
-    private static Map<String, UserStatusVo> userStatus = new Hashtable<String, UserStatusVo>();
 
     public boolean login(String email, String password) {
         List<UserPo> res = userDao.checkUser(email, password);
@@ -70,11 +69,22 @@ public class UserBo {
         userDao.updateUser(username, email);
     }
 
-    public List<UserStatusVo> searchUser(String userCondition) {
+    private boolean isFriend(String email1, String email2) {
+        UserPo userId = userDao.findUserByEmail(email1);
+        UserPo friendId = userDao.findUserByEmail(email2);
+        int count = userDao.isFriend(userId.getId(), friendId.getId());
+        return count > 0;
+    }
+
+    public List<UserStatusVo> searchUser(String userCondition, String fromEmail) {
         List<UserPo> list = userDao.searchUser(userCondition);
         List<UserStatusVo> ret =  new ArrayList<UserStatusVo>();
         ret.clear();
         for (UserPo item : list) {
+            if (isFriend(item.getEmail(), fromEmail))
+                continue;
+            if (item.getEmail().equals(fromEmail))
+                continue;
             UserStatusVo tmp = new UserStatusVo();
             tmp.setUsername(item.getUsername());
             tmp.setEmail(item.getEmail());
@@ -115,11 +125,18 @@ public class UserBo {
     }
 
     public Map<String, UserStatusVo> recentList(String email, Map<String, UserStatusVo> ret) {
-        List<String> list = userDao.getUnreadFriendList(email);
-        for (String item : list) {
-            if (ret.get(item) != null)
+        List<UnreadMessagePo> list = userDao.getUnreadFriendList(email);
+        for (UnreadMessagePo item : list) {
+            if (item.getType() >= 110 && item.getType() < 120) {
+                ret.get("systemInfo@sys.com").setHaveUnread(true);
                 continue;
-            UserPo u = userDao.findUserByEmail(item);
+            }
+            UserStatusVo t = ret.get(item.getFromEmail());
+            if (t != null) {
+                t.setHaveUnread(true);
+                continue;
+            }
+            UserPo u = userDao.findUserByEmail(item.getFromEmail());
             UserStatusVo v = new UserStatusVo();
             v.setHaveUnread(true);
             v.setEmail(u.getEmail());
@@ -128,5 +145,52 @@ public class UserBo {
             ret.put(v.getEmail(), v);
         }
         return ret;
+    }
+
+    public void buildFriendship(String fromEmail, String toEmail) {
+        UserPo u1 = userDao.findUserByEmail(fromEmail);
+        UserPo u2 = userDao.findUserByEmail(toEmail);
+        userDao.buildFriendship(u1.getId(), u2.getId(), "default");
+        userDao.buildFriendship(u2.getId(), u1.getId(), "default");
+    }
+
+    public void moveGroup(String fromEmail, String toEmail, String groupName) {
+        UserPo u1 = userDao.findUserByEmail(fromEmail);
+        UserPo u2 = userDao.findUserByEmail(toEmail);
+        userDao.moveGroup(u1.getId(), u2.getId(), groupName);
+    }
+
+    public String getNowGroup(String fromEmail, String toEmail) {
+        UserPo u1 = userDao.findUserByEmail(fromEmail);
+        UserPo u2 = userDao.findUserByEmail(toEmail);
+        return userDao.getNowGroup(u1.getId(), u2.getId());
+    }
+
+    public int removeGroup(String fromEmail, String groupName) {
+        UserPo u = userDao.findUserByEmail(fromEmail);
+        return userDao.removeGroup(u.getId(), groupName);
+    }
+
+    public int updateGroupName(String email, String oriName, String newName) {
+        UserPo u = userDao.findUserByEmail(email);
+        userDao.updateGroupNameInFriendship(u.getId(), oriName, newName);
+        return userDao.updateGroupName(u.getId(), oriName, newName);
+    }
+
+    public int deleteFriend(String fromEmail, String toEmail) {
+        UserPo u1 = userDao.findUserByEmail(fromEmail);
+        UserPo u2 = userDao.findUserByEmail(toEmail);
+        return userDao.deleteFriend(u1.getId(), u2.getId());
+    }
+
+    public int register(String username, String email, String password) {
+        UserPo u;
+        u = userDao.findUserByEmail(email);
+        if (u != null)
+            return 0;
+        userDao.register(username, email, password, 0);
+        u = userDao.findUserByEmail(email);
+        userDao.addGroup(u.getId(), "default");
+        return userDao.addPersonalInfo(username, 0, email, "");
     }
 }

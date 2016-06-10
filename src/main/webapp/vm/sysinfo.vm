@@ -1,0 +1,47 @@
+<div id="sysinfo">
+    #foreach($item in $applyList.entrySet())
+    <li>
+        <img class="cancel" width="20" height="20" src="img/cancel.png">
+        <img width="50" height="50" src="http://lorempixel.com/50/50/people/0">
+        <div class="info">
+            <div class="user">$item.value.username</div>
+            <div class="status">$item.value.email</div>
+        </div>
+        <a class="addBtn">accept</a>
+    </li>
+    #end
+</div>
+
+<script type="text/javascript">
+    var conf = {
+        cursorcolor: "#696c75",
+        cursorwidth: "4px",
+        cursorborder: "none"
+    };
+    $("#sysinfo").niceScroll(conf);
+
+    $(".cancel").click(function () {
+        var email = $(this).parent().find(".status")[0].innerText;
+//        alert(email);
+       $.ajax({
+           type: "POST",
+           url: "/chat/removeApply",
+           data: {email: email},
+           success: function(){
+           }
+       });
+        $(this).parent().remove();
+    });
+    $(".addBtn").click(function () {
+        var email = $(this).parent().find(".status")[0].innerText;
+        $.ajax({
+            type: "POST",
+            url: "/chat/removeApply",
+            data: {email: email},
+            success: function(){
+            }
+        });
+        $(this).parent().remove();
+        send(JSON.stringify({type: "allowApply", fromEmail: email}));
+    });
+</script>

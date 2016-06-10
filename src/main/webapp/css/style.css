@@ -106,11 +106,12 @@ body {
 }
 
 .ui .addGroup {
-  width: 11%;
-  height: 11%;
+  /*width: 11%;*/
+  /*height: 11%;*/
   /*float: right;*/
   /*padding-top: 2%;*/
   /*margin-top: -26%;*/
+  color: #d6d9de;
 }
 
 .ui .left-menu {
@@ -556,10 +557,16 @@ body {
   color: #a8a8a8;
 }
 
+.detailinfo .groupChoise {
+  font-size: 80%;
+  color: #a8a8a8;
+  margin: 1% 36%;
+}
+
 /*active button*/
 .activeButton {
   display: inline-block;
-  margin: 15% 42%;
+  margin: 8% 42%;
   padding: 2%;
   font-size: 1.625rem;
   text-decoration: none;
@@ -692,4 +699,78 @@ body {
   margin-top: 11%;
   /*position: absolute;*/
   float:right;
+}
+
+/*system info*/
+#sysinfo {
+  list-style: none;
+  margin: 5% 3%;
+  height: 100%;
+  padding: 3%;
+  overflow: auto;
+}
+
+#sysinfo img {
+  border-radius: 50%;
+  border: 3px solid #696c75;
+  margin: 5px;
+}
+
+#sysinfo > li {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 0 10px 10px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#sysinfo .info {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+#sysinfo .user {
+  color: #fff;
+  margin-top: 12px;
+}
+#sysinfo .status {
+  position: relative;
+  color: #a8adb3;
+}
+
+#sysinfo .cancel {
+  border: none;
+  margin-top: 5%;
+}
+
+/*group manager*/
+#group-list {
+  margin: 5%;
+  height: 90%;
+  width: 90%;
+  padding-left: 10%;
+  padding-top: 8%;
+}
+
+#group-list .cancel {
+  border: none;
+}
+
+#group-list .group-name {
+  width: 60%;
+  background: #e5e5e5;
+  border: none;
+  margin-left: 3%;
+  font-size: 120%;
+  margin-top: 2%;
+}
+
+.new-group {
+  float: right;
+  margin-top: 2%;
+  margin-right: 2%;
 }

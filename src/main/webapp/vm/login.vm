@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script type="text/javascript" src="/js/jquery-1.12.0.min.js"></script>
     <script type="text/javascript" src="/js/login.js"></script>
+    <script type="text/javascript" src="/js/md5.js"></script>
     <link href="/css/login.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -94,7 +95,7 @@
                     <label for="qq" class="input-tips2">Email：</label>
                     <div class="inputOuter2">
 
-                        <input type="text" id="qq" name="qq" maxlength="10" class="inputstyle2"/>
+                        <input type="text" id="qq" name="qq" class="inputstyle2"/>
                     </div>
 
                 </li>

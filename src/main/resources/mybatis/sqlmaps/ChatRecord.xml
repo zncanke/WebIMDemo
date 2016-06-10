@@ -37,11 +37,27 @@
     </insert>
     <select id="unreadBetween" resultType="UnreadMessagePo">
         select * from unread_message
-        where fromEmail = #{fromEmail} and toEmail = #{toEmail}
+        where fromEmail = #{fromEmail} and toEmail = #{toEmail} and type &gt;= 100 and type &lt; 110
         order by createTime
     </select>
     <delete id="removeUnreadBetween">
         delete from unread_message
-        where fromEmail = #{fromEmail} and toEmail = #{toEmail}
+        where fromEmail = #{fromEmail} and toEmail = #{toEmail} and type &gt;= 100 and type &lt; 110
+    </delete>
+    <select id="applyList" resultType="String">
+        select fromEmail from unread_message
+        where toEmail = #{toEmail} and type &gt;= 110 and type &lt; 120
+    </select>
+    <delete id="removeApply">
+        delete from unread_message
+        where fromEmail = #{fromEmail} and toEmail = #{toEmail} and type &gt;= 110 and type &lt; 120
+    </delete>
+    <delete id="deleteRecordsBetween">
+        delete from chat_record
+        where ( fromEmail = #{fromEmail} and toEmail = #{toEmail} ) or ( fromEmail = #{toEmail} and toEmail = #{fromEmail} )
+    </delete>
+    <delete id="deleteUnreadBetween">
+        delete from unread_message
+        where ( fromEmail = #{fromEmail} and toEmail = #{toEmail} ) or ( fromEmail = #{toEmail} and toEmail = #{fromEmail} )
     </delete>
 </mapper>

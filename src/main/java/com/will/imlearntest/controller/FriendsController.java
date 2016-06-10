@@ -28,7 +28,8 @@ public class FriendsController {
     @RequestMapping("searchUser")
     public String searchUser(@ModelAttribute("userCondition") String userCondition,
                              HttpServletRequest request, HttpServletResponse response) {
-        List<UserStatusVo> list = userBo.searchUser(userCondition);
+        String fromEmail = (String) request.getSession().getAttribute("fromEmail");
+        List<UserStatusVo> list = userBo.searchUser(userCondition, fromEmail);
         request.getSession().setAttribute("searchUserResult", list);
         return "searchUserResult";
     }

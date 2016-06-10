@@ -46,9 +46,23 @@ public class UserController {
                 userBo.userLogout(oEmail);
             request.getSession().removeAttribute("recentList");
             refreshRecent(request);
+            Map<String, Map<String, UserStatusVo>> res = userBo.listFriends((String)request.getSession().getAttribute("fromEmail"));
+            request.getSession().setAttribute("friendList", res);
             return BaseResultVo.success;
         } else
             return new BaseResultVo(0, "certification failed");
+    }
+
+    @RequestMapping("register")
+    @ResponseBody
+    public BaseResultVo register(@ModelAttribute("username") String username,
+                                 @ModelAttribute("email") String email,
+                                 @ModelAttribute("password") String password,
+                                 HttpServletRequest request, HttpServletResponse response) {
+        int res = userBo.register(username, email, password);
+        if (res == 0)
+            return new BaseResultVo(0, "The email has been register");
+        return BaseResultVo.success;
     }
 
     @RequestMapping("friendList")
@@ -66,14 +80,17 @@ public class UserController {
     @RequestMapping("detailinfo")
     public String detailinfo(@ModelAttribute("email") String email,
                              HttpServletRequest request, HttpServletResponse response) {
+        String fromEmail = (String)request.getSession().getAttribute("fromEmail");
         if (email.equals("self"))
-            email = (String)request.getSession().getAttribute("fromEmail");
+            email = fromEmail;
+        else {
+            String nowGroup = userBo.getNowGroup(fromEmail, email);
+            request.getSession().setAttribute("nowGroup", nowGroup);
+        }
         request.getSession().setAttribute("boxStatus", "detail:" + email);
         request.getSession().setAttribute("detailEmail", email);
         PersonalInfoVo personalInfoVo = userBo.getPersonalInfo(email);
-//        System.out.println(personalInfoVo.getEmail());
         request.getSession().setAttribute("personalInfoVo", personalInfoVo);
-//        System.out.println(personalInfoVo);
         return "detailinfo";
     }
 
@@ -102,8 +119,36 @@ public class UserController {
         if (list == null) {
             list = new HashMap<String, UserStatusVo>();
             list.clear();
+            UserStatusVo tmp = new UserStatusVo();
+            tmp.setHaveUnread(false);
+            list.put("systemInfo@sys.com", tmp);
         }
         list = userBo.recentList((String)request.getSession().getAttribute("fromEmail"), list);
         request.getSession().setAttribute("recentList", list);
+    }
+
+    @RequestMapping("groupManager")
+    public String groupManager(HttpServletRequest request, HttpServletResponse response) {
+        return "groupManager";
+    }
+
+    @RequestMapping("removeGroup")
+    @ResponseBody
+    public BaseResultVo removeGroup(@ModelAttribute("groupName") String groupName,
+                                    HttpServletRequest request, HttpServletResponse response) {
+        String fromEmail = (String)request.getSession().getAttribute("fromEmail");
+        Map<String, Map<String, UserStatusVo>> list = (Map<String, Map<String, UserStatusVo>>) request.getSession().getAttribute("friendList");
+        if (!list.get(groupName).isEmpty())
+            return new BaseResultVo(0, "Non-empty group can not be removed");
+        userBo.removeGroup(fromEmail, groupName);
+        return BaseResultVo.success;
+    }
+
+    @RequestMapping("updateGroupName")
+    public void updateGroupName(@ModelAttribute("oriName") String oriName,
+                                @ModelAttribute("newName") String newName,
+                                HttpServletRequest request, HttpServletResponse response) {
+        String fromEmail = (String) request.getSession().getAttribute("fromEmail");
+        userBo.updateGroupName(fromEmail, oriName, newName);
     }
 }

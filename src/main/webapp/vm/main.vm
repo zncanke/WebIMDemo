@@ -34,7 +34,8 @@
 				<form action="#" class="search">
 					<input placeholder="search..." type="search" name="" id="">
 ##					<input type="submit" value="&#xf002;">
-                    <img src="img/off.png" class="addGroup" id="addGroup">
+##                    <img src="img/off.png" class="addGroup" id="addGroup">
+                    <i class="addGroup fa fa-align-justify" id="addGroup"></i>
 				</form>
 				<menu class="list-friends" id="list-friends">
 					#parse("/vm/recent.vm")

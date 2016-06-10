@@ -51,8 +51,48 @@
         status = #{status}
         where email = #{email}
     </update>
-    <select id="getUnreadFriendList" resultType="String">
-        select fromEmail from unread_message
+    <select id="getUnreadFriendList" resultType="UnreadMessagePo">
+        select * from unread_message
         where toEmail = #{toEmail}
     </select>
+    <select id="isFriend" resultType="Integer">
+        select count(*) from friendship
+        where userId = #{userId} and friendId = #{friendId}
+    </select>
+    <insert id="buildFriendship">
+        insert into friendship values(
+        #{userId}, #{friendId}, #{groupName})
+    </insert>
+    <update id="moveGroup">
+        update friendship set groupName = #{groupName}
+        where userId = #{userId} and friendId = #{friendId}
+    </update>
+    <select id="getNowGroup" resultType="String">
+        select groupName from friendship
+        where userId = #{userId} and friendId = #{friendId}
+    </select>
+    <delete id="removeGroup">
+        delete from groups
+        where userId = #{userId} and groupName = #{groupName}
+    </delete>
+    <update id="updateGroupName">
+        update groups set groupName = #{newName}
+        where userId = #{userId} and groupName = #{oriName}
+    </update>
+    <update id="updateGroupNameInFriendship">
+        update friendship set groupName = #{newName}
+        where userId = #{userId} and groupName = #{oriName}
+    </update>
+    <delete id="deleteFriend">
+        delete from friendship
+        where ( userId = #{userId} and friendId = #{friendId} ) OR ( userId = #{friendId} and friendId = #{userId})
+    </delete>
+    <insert id="register">
+        insert into user(username, email, password, status) values(
+        #{username}, #{email}, #{password}, #{status})
+    </insert>
+    <insert id="addPersonalInfo">
+        insert into personal_info values(
+        #{username}, #{gender}, #{email}, #{signature})
+    </insert>
 </mapper>

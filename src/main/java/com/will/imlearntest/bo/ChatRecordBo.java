@@ -1,23 +1,26 @@
 package com.will.imlearntest.bo;
 
 import com.will.imlearntest.dao.ChatRecordDao;
+import com.will.imlearntest.dao.UserDao;
 import com.will.imlearntest.po.ChatRecordPo;
 import com.will.imlearntest.po.UnreadMessagePo;
+import com.will.imlearntest.po.UserPo;
 import com.will.imlearntest.vo.ChatRecordVo;
+import com.will.imlearntest.vo.UserStatusVo;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ChatRecordBo {
 
     @Autowired
     private ChatRecordDao chatRecordDao;
+
+    @Autowired
+    private UserDao userDao;
 
     public List<ChatRecordVo> recordBetween(String fromEmail, String toEmail) {
 //        System.err.println("Before DAO");
@@ -76,5 +79,28 @@ public class ChatRecordBo {
         }
         chatRecordDao.removeUnreadBetween(fromEmail, toEmail);
         return ret;
+    }
+
+    public Map<String, UserStatusVo> applyList(String email) {
+        List<String> list = chatRecordDao.applyList(email);
+        Map<String, UserStatusVo> ret = new HashMap<String, UserStatusVo>();
+        ret.clear();
+        for (String e : list) {
+            UserPo u = userDao.findUserByEmail(e);
+            UserStatusVo v = new UserStatusVo();
+            v.setEmail(u.getEmail());
+            v.setUsername(v.getEmail());
+            ret.put(e, v);
+        }
+        return ret;
+    }
+
+    public void removeApply(String fromEmail, String toEmail) {
+        chatRecordDao.removeApply(fromEmail, toEmail);
+    }
+
+    public void deleteRecordsBetween(String fromEmail, String toEmail) {
+        chatRecordDao.deleteRecordsBetween(fromEmail, toEmail);
+        chatRecordDao.deleteUnreadBetween(fromEmail, toEmail);
     }
 }
