@@ -2,7 +2,7 @@ var websocket = null;
 
 //判断当前浏览器是否支持WebSocket
 if('WebSocket' in window){
-    websocket = new WebSocket("ws://localhost:8080/websocket");
+    websocket = new ReconnectingWebSocket("ws://localhost:8080/websocket");
 }
 else{
     alert('Not support websocket')
@@ -31,6 +31,8 @@ websocket.onmessage = function(){
         allowApply(jsonObject);
     else if (type >= 130 && type < 140)
         deleteFriend(type, jsonObject);
+    else if (type >= 140 && type < 160)
+        inOutMessage(type, jsonObject);
 };
 
 //连接关闭的回调方法
@@ -118,5 +120,17 @@ function deleteFriend(type, jsonObject) {
         var obj = document.getElementById(id2);
         if (obj != null)
             obj.parentNode.removeChild(obj);
+    }
+}
+
+function inOutMessage(type, jsonObject) {
+    var email = jsonObject["email"];
+    if (type % 10 == 0)
+        email = "recent:" + email;
+    var obj = document.getElementById(email);
+    if (type < 150) {
+        obj.getElementsByClassName("status off")[0].setAttribute("class", "status on");
+    } else {
+        obj.getElementsByClassName("status on")[0].setAttribute("class", "status off");
     }
 }

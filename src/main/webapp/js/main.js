@@ -7,11 +7,13 @@ function claerResizeScroll() {
 
 //发送消息给对方,包括发给服务器及页面中聊天框添加内容
 function insertI(fromEmail, toEmail, fromUsername, toUsername) {
+  var t;
   var innerText;
   innerText = $.trim($("#texxt").val());
   if (innerText !== "") {
+      t = encodeURI(innerText);
       send(JSON.stringify({type: "sendMessage",
-                           fromEmail: fromEmail, toEmail: toEmail, content: innerText,
+                           fromEmail: fromEmail, toEmail: toEmail, content: t,
                            fromUsername: fromUsername, toUsername: toUsername}));
   }
   if (innerText !== "") {
@@ -37,13 +39,15 @@ function insertI(fromEmail, toEmail, fromUsername, toUsername) {
   conf = {
     cursorcolor: "#696c75",
     cursorwidth: "4px",
-    cursorborder: "none"
+    cursorborder: "none",
+    horizrailenabled: false
   };
 
   lol = {
     cursorcolor: "#cdd2d6",
     cursorwidth: "4px",
-    cursorborder: "none"
+    cursorborder: "none",
+    horizrailenabled: false
   };
 
   $(document).ready(function() {
@@ -104,8 +108,22 @@ function insertI(fromEmail, toEmail, fromUsername, toUsername) {
                   $(".list-friends").html(result);
               }
           });
-      })
+      });
 
+      $("#search").on("keypress", function (event) {
+          var condition = encodeURI($("#search").val());
+          if (event.keyCode == 13) {
+              // alert(condition);
+              $.ajax({
+                  type: "POST",
+                  url: "/friend/searchFriend",
+                  data: {condition: condition},
+                  success: function (result) {
+                      $("#list-friends").html(result);
+                  }
+              });
+          }
+      });
   });
 
 }).call(this);
@@ -113,12 +131,13 @@ function insertI(fromEmail, toEmail, fromUsername, toUsername) {
 
 //将消息显示在网页上
 function setMessageInnerHTML(jsonObject){
+    var content = decodeURI(jsonObject.content);
     document.getElementById('messages').innerHTML +=
         "<li class=\"friend-with-a-SVAGina\">" +
         "<div class=\"head\"> <span class=\"time\">10:13 AM, Today</span>" +
         "<span class=\"name\">" + jsonObject.fromUsername + "</span>" +
         "</div>" +
-        "<div class=\"message\">" + jsonObject.content + "</div>" +
+        "<div class=\"message\">" + content + "</div>" +
         "</li>"
     claerResizeScroll();
 }

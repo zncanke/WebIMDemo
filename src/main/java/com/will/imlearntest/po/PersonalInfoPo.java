@@ -8,6 +8,7 @@ public class PersonalInfoPo {
     private int gender;
     private String email;
     private String signature;
+    private String pic;
     public void setUsername(String username) {
         this.username = username;
     }
@@ -31,5 +32,11 @@ public class PersonalInfoPo {
     }
     public String getSignature() {
         return signature;
+    }
+    public String getPic() {
+        return pic;
+    }
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 }

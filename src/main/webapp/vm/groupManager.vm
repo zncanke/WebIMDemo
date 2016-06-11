@@ -92,6 +92,8 @@
         if (newName == "") {
             alert("The group name can not be empty or just spaces");
         } else {
+            newName = encodeURI(newName);
+            oriName = encodeURI(oriName);
             $.ajax({
                 type: "POST",
                 url: "/user/updateGroupName",

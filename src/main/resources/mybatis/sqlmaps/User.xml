@@ -93,6 +93,10 @@
     </insert>
     <insert id="addPersonalInfo">
         insert into personal_info values(
-        #{username}, #{gender}, #{email}, #{signature})
+        #{username}, #{gender}, #{email}, #{signature}, '/userResources/default.png')
     </insert>
+    <update id="updatePic">
+        update personal_info set pic = #{pic}
+        where email = #{email}
+    </update>
 </mapper>

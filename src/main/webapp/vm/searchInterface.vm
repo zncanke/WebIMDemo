@@ -18,7 +18,7 @@
     };
     $("#addFriendList").niceScroll(conf);
     $(".cell .button").click(function () {
-        var userCondition = document.getElementById("userCondition").value;
+        var userCondition = encodeURI(document.getElementById("userCondition").value);
         $.ajax({
             type: "GET",
             url: "/friend/searchUser",

@@ -4,6 +4,7 @@ import com.sun.tracing.dtrace.ModuleAttributes;
 import com.will.imlearntest.bo.ChatRecordBo;
 import com.will.imlearntest.bo.UserBo;
 import com.will.imlearntest.vo.ChatRecordVo;
+import com.will.imlearntest.vo.PersonalInfoVo;
 import com.will.imlearntest.vo.UserStatusVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,6 +47,8 @@ public class ChatController {
             list.get(toEmail).setHaveUnread(false);
         }
         String fromEmail = (String)request.getSession().getAttribute("fromEmail");
+        PersonalInfoVo p = userBo.getPersonalInfo(toEmail);
+        request.getSession().setAttribute("personalInfoVo", p);
         request.getSession().setAttribute("toEmail", toEmail);
         request.getSession().setAttribute("fromUsername", userBo.getUsernameByEmail(fromEmail));
         request.getSession().setAttribute("toUsername", userBo.getUsernameByEmail(toEmail));

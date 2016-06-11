@@ -10,6 +10,7 @@ public class PersonalInfoVo {
     private int gender;
     private String email;
     private String signature;
+    private String pic;
     public PersonalInfoVo(PersonalInfoPo personalInfoPo) {
         this.username = personalInfoPo.getUsername();
         StringBuffer tmp = new StringBuffer("Email:");
@@ -17,6 +18,7 @@ public class PersonalInfoVo {
         this.email = tmp.toString();
         this.signature = personalInfoPo.getSignature();
         this.gender = personalInfoPo.getGender();
+        this.pic = personalInfoPo.getPic();
     }
     public String getEmail() {
         return this.email;
@@ -29,5 +31,11 @@ public class PersonalInfoVo {
     }
     public String getUsername() {
         return this.username;
+    }
+    public String getPic() {
+        return pic;
+    }
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 }

@@ -13,6 +13,8 @@ import javax.json.Json;
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -48,6 +50,10 @@ public class MyWebSocket {
     private final int DELETE_FRIEND_RECENT_CLOSE = 131;
     private final int DELETE_FRIEND_FRIEND_OPEN = 132;
     private final int DELETE_FRIEND_FRIEND_CLOSE = 133;
+
+    //登入登出
+    private final int IN_MESSAGE = 140;
+    private final int OUT_MESSAGE = 150;
 
     private static ConcurrentHashMap<String, MyWebSocket> webSocketMap = new ConcurrentHashMap<String, MyWebSocket>();
     private Session session;
@@ -89,8 +95,8 @@ public class MyWebSocket {
         switch (op) {
             case UPDATE_PERSONAL_INFO: updatePersonalInfo(jsonObject); break;
             case SEND_MESSAGE: sendMessage(jsonObject); break;
-            case USER_LOGIN: userLogin(); break;
-            case USER_LOGOUT: userLogout(); break;
+            case USER_LOGIN: userLogin(jsonObject); break;
+            case USER_LOGOUT: userLogout(jsonObject); break;
             case FRIEND_APPLY: friendApply(jsonObject); break;
             case ALLOW_APPLY: allowApply(jsonObject); break;
             case DELETE_FRIEND: deleteFriend(jsonObject); break;
@@ -115,16 +121,24 @@ public class MyWebSocket {
         return 0;
     }
 
-    private void updatePersonalInfo(JSONObject jsonObject) {
+    private void updatePersonalInfo(JSONObject jsonObject){
         String username = jsonObject.getString("thename");
         String signature = jsonObject.getString("thesign");
+        String group = jsonObject.getString("thegroup");
+        try {
+            username = URLDecoder.decode(username, "UTF-8");
+            signature = URLDecoder.decode(signature, "UTF-8");
+            group = URLDecoder.decode(group, "UTF-8");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         String gender = jsonObject.getString("thegender");
         String fromEmail = (String)httpSession.getAttribute("fromEmail");
         String detailEmail = (String)httpSession.getAttribute("detailEmail");
         if (fromEmail.equals(detailEmail))
             userBo.updatePersonalinfo(username, signature, gender, fromEmail);
         else {
-            userBo.moveGroup(fromEmail, detailEmail, jsonObject.getString("thegroup"));
+            userBo.moveGroup(fromEmail, detailEmail, group);
             jsonObject.put("type", NEED_TO_REFRESH_FRIENDLIST);
             try {
                 this.session.getBasicRemote().sendText(jsonObject.toJSONString());
@@ -138,6 +152,11 @@ public class MyWebSocket {
         String fromEmail = jsonObject.getString("fromEmail");
         String toEmail = jsonObject.getString("toEmail");
         String content = jsonObject.getString("content");
+        try {
+            content = URLDecoder.decode(content, "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         MyWebSocket myWebSocket = webSocketMap.get(toEmail);
 
         chatRecordBo.addChat(fromEmail, toEmail, content);
@@ -165,14 +184,39 @@ public class MyWebSocket {
         }
     }
 
-    private void userLogin() {
+    private void userLogin(JSONObject jsonObject) {
         String fromEmail = (String)httpSession.getAttribute("fromEmail");
         userBo.userLogin(fromEmail);
+        sendInOutMessage(jsonObject, IN_MESSAGE, fromEmail);
     }
 
-    private void userLogout() {
+    private void userLogout(JSONObject jsonObject) {
         String fromEmail = (String)httpSession.getAttribute("fromEmail");
         userBo.userLogout(fromEmail);
+        sendInOutMessage(jsonObject, OUT_MESSAGE, fromEmail);
+    }
+
+    private void sendInOutMessage(JSONObject jsonObject, int type, String fromEmail) {
+        Map<String, Map<String, UserStatusVo>> list = (Map<String, Map<String, UserStatusVo>>)httpSession.getAttribute("friendList");
+        for (String g : list.keySet()) {
+            Map<String, UserStatusVo> group = list.get(g);
+            for (String toEmail : group.keySet()) {
+                if (userBo.getUserStatus(toEmail) == 1) {
+                    MyWebSocket myWebSocket = webSocketMap.get(toEmail);
+                    String listStatus = (String)myWebSocket.httpSession.getAttribute("listStatus");
+
+                    type += listStatus.equals("friendList") ? 2 : 0;
+
+                    jsonObject.put("type", type);
+                    jsonObject.put("email", fromEmail);
+                    try {
+                        myWebSocket.session.getBasicRemote().sendText(jsonObject.toJSONString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 
     private void friendApply(JSONObject jsonObject) {

@@ -774,3 +774,10 @@ body {
   margin-top: 2%;
   margin-right: 2%;
 }
+
+.status p {
+  overflow: hidden;
+  width: 69px;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}

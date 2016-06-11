@@ -15,13 +15,17 @@
     #foreach ($item in $recentList.entrySet())
         #if ($item.key != "systemInfo@sys.com")
         <li id="recent:$item.value.email">
-            <img width="50" height="50" src="img/kobe.jpeg">
+            <img width="50" height="50" src="$item.value.pic">
             <div class="info">
                 <div class="user">$item.value.username</div>
                 #if ($item.value.status == 1)
-                    <div class="status on"></div>
+                    <div class="status on">
+                        <p>$item.value.signature</p>
+                    </div>
                 #else
-                    <div class="status off"></div>
+                    <div class="status off">
+                        <p>$item.value.signature</p>
+                    </div>
                 #end
             </div>
             #if ($item.value.haveUnread)

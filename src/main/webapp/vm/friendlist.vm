@@ -6,13 +6,17 @@
     <div style="display: none;" >
         #foreach($data in ${friendList.get($item).entrySet()})
         <li id="$data.value.email">
-            <img width="50" height="50" src="http://cs625730.vk.me/v625730358/1126a/qEjM1AnybRA.jpg">
+            <img width="50" height="50" src="$data.value.pic">
             <div class="info">
                 <div class="user">$data.value.username</div>
                 #if($data.value.status == 1)
-                    <div class="status on"> online</div>
+                    <div class="status on">
+                        <p>$data.value.signature</p>
+                    </div>
                 #else
-                    <div class="status off"> offline</div>
+                    <div class="status off">
+                        <p>$data.value.signature</p>
+                    </div>
                 #end
                 <div class="hiddenThing" hidden="hidden">$data.value.email</div>
             </div>

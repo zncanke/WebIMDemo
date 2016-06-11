@@ -40,11 +40,14 @@ public class UserBo {
             List<Integer> tmp = userDao.friendList(user.getId(), group);
             for (int i : tmp) {
                 UserPo p1 = userDao.findUserById(i);
+                PersonalInfoPo pi = userDao.getPersonalInfo(p1.getEmail());
                 UserStatusVo p2 = new UserStatusVo();
                 p2.setEmail(p1.getEmail());
                 p2.setStatus(p1.getStatus());
                 p2.setUsername(p1.getUsername());
                 p2.setHaveUnread(false);
+                p2.setPic(pi.getPic());
+                p2.setSignature(pi.getSignature());
                 child.put(p2.getEmail(), p2);
             }
             list.put(group, child);
@@ -85,9 +88,11 @@ public class UserBo {
                 continue;
             if (item.getEmail().equals(fromEmail))
                 continue;
+            PersonalInfoPo p = userDao.getPersonalInfo(item.getEmail());
             UserStatusVo tmp = new UserStatusVo();
             tmp.setUsername(item.getUsername());
             tmp.setEmail(item.getEmail());
+            tmp.setPic(p.getPic());
             ret.add(tmp);
         }
         return ret;
@@ -118,9 +123,12 @@ public class UserBo {
     public UserStatusVo getUserByEmail(String email) {
         UserStatusVo ret = new UserStatusVo();
         UserPo userPo = userDao.findUserByEmail(email);
+        PersonalInfoPo p = userDao.getPersonalInfo(userPo.getEmail());
         ret.setUsername(userPo.getUsername());
         ret.setEmail(userPo.getEmail());
         ret.setStatus(userPo.getStatus());
+        ret.setPic(p.getPic());
+        ret.setSignature(p.getSignature());
         return ret;
     }
 
@@ -137,11 +145,14 @@ public class UserBo {
                 continue;
             }
             UserPo u = userDao.findUserByEmail(item.getFromEmail());
+            PersonalInfoPo p = userDao.getPersonalInfo(u.getEmail());
             UserStatusVo v = new UserStatusVo();
             v.setHaveUnread(true);
             v.setEmail(u.getEmail());
             v.setStatus(u.getStatus());
             v.setUsername(u.getUsername());
+            v.setPic(p.getPic());
+            v.setSignature(p.getSignature());
             ret.put(v.getEmail(), v);
         }
         return ret;
@@ -192,5 +203,9 @@ public class UserBo {
         u = userDao.findUserByEmail(email);
         userDao.addGroup(u.getId(), "default");
         return userDao.addPersonalInfo(username, 0, email, "");
+    }
+
+    public int updatePic(String email, String pic) {
+        return userDao.updatePic(email, pic);
     }
 }

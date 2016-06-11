@@ -1,0 +1,43 @@
+<div>
+#foreach ($item in $searchList.entrySet())
+    <li id="recent:$item.value.email">
+        <img width="50" height="50" src="$item.value.pic">
+        <div class="info">
+            <div class="user">$item.value.username</div>
+            #if ($item.value.status == 1)
+                <div class="status on">
+                    <p>$item.value.signature</p>
+                </div>
+            #else
+                <div class="status off">
+                    <p>$item.value.signature</p>
+                </div>
+            #end
+        </div>
+        #if ($item.value.haveUnread)
+            <p class="hintPoint" style="background: #f00;"></p>
+        #else
+            <p class="hintPoint"></p>
+        #end
+        <div class="hiddenThing" hidden="hidden">$item.value.email</div>
+    </li>
+#end
+</div>
+
+<script>
+    $("#list-friends div li").click(function(){
+        $("#list-friends div").find("li").css("background-color", "transparent");
+        $(this).css("background-color", "#6b6e77");
+        var toEmail = $(this).find(".hiddenThing")[0].innerText;
+//        alert(toEmail);
+        $.ajax({
+            type: "POST",
+            url: "/chat/chatbox",
+            data: {toEmail: toEmail},
+            success: function(result) {
+                $("#chat").html(result);
+            }
+        });
+        $(".hintPoint").css("background", "transparent");
+    });
+</script>

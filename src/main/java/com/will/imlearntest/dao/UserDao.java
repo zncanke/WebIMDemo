@@ -57,4 +57,7 @@ public interface UserDao {
                                @Param("gender") int gender,
                                @Param("email") String email,
                                @Param("signature") String signature);
+
+    public int updatePic(@Param("email") String email,
+                         @Param("pic") String pic);
 }

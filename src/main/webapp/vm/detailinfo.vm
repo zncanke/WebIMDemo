@@ -2,7 +2,12 @@
     #if (${fromEmail} != ${detailEmail})
     <i id="deleteFriend" class="fa fa-close" style="color:#696c75;"> delete this friend</i>
     #end
-    <img class="head" src="http://lorempixel.com/50/50/people/99">
+    <img class="head" src="$personalInfoVo.pic">
+    #if (${fromEmail} == ${detailEmail})
+        <form id="uploadHead-form">
+            <input id="uploadHead" name="pic" class="hiddenThing" type="file" hidden="hidden" value="" accept="image/jpeg, image/x-png, image/x-MS-bmp">
+        </form>
+    #end
     <input id="name" class="name" type="text" readonly=true value="$personalInfoVo.username">
     <textarea id="sign" class="signature" type="text" readonly=true>$personalInfoVo.signature</textarea>
     <HR class="division" size=2 color=#d81406/>
@@ -41,10 +46,10 @@
 <script type="text/javascript">
     //save按键点击动作
     $("#activeButton").click(function () {
-        var thename = document.getElementById("name").value;
-        var thesign = document.getElementById("sign").value;
+        var thename = encodeURI(document.getElementById("name").value);
+        var thesign = encodeURI(document.getElementById("sign").value);
         var thegender = $("input[name='sex']:checked").val();
-        var thegroup = $("#groupChoise").val();
+        var thegroup = encodeURI($("#groupChoise").val());
         var data = {type:"updatePersonalInfo", thename:thename, thesign:thesign, thegender:thegender, thegroup: thegroup};
         send(JSON.stringify(data));
         $("#chat").html("");
@@ -63,5 +68,35 @@
         send(JSON.stringify({type:"deleteFriend", toEmail: email}));
         $("#chat").html("");
     });
+    $(".chat .detailinfo .head").click(function() {
+        var i = $("#uploadHead");
+        i.trigger('click');
+    });
+
+    $("#uploadHead").on("change", function() {
+        var addr = $("#uploadHead").val();
+        var pic = $("#uploadHead-form").serialize();
+        $("#uploadHead-form").ajaxSubmit({
+            type: "POST",
+            url: "user/uploadHead",
+            dataType: "json",
+            data: {pic: pic},
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(result) {
+                if (result.status == 200) {
+                    var email = $(".others").val();
+                    email = "/userResources/" + email.substr(6) + "_head" + addr.substr(addr.indexOf("."));
+                    email = email + "?" + Math.random(500);
+                    $(".head").attr("src", email);
+                    $("#myhead").attr("src", email);
+                } else {
+                    alert(result.message);
+                }
+            }
+        });
+    });
+
 </script>
 

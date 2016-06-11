@@ -17,12 +17,10 @@ public class UserStatusVo {
      * 状态
      */
     private int status;
-    /**
-     * 上一次心跳时间
-     */
-    private Date lastHeartBeat;
     private String email;
     private boolean haveUnread;
+    private String signature;
+    private String pic;
 
     public void setUsername(String username) {
         this.username = username;
@@ -36,12 +34,6 @@ public class UserStatusVo {
     public int getStatus() {
         return status;
     }
-    public void setLastHeartBeat(Date lastHeartBeat) {
-        this.lastHeartBeat = lastHeartBeat;
-    }
-    public Date getLastHeartBeat() {
-        return lastHeartBeat;
-    }
     public void setEmail(String email) {
         this.email = email;
     }
@@ -54,5 +46,16 @@ public class UserStatusVo {
     public boolean getHaveUnread() {
         return this.haveUnread;
     }
-
+    public String getSignature() {
+        return signature;
+    }
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+    public String getPic() {
+        return pic;
+    }
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
 }
