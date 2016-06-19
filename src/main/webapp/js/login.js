@@ -123,7 +123,7 @@ $(document).ready(function() {
 				if (result.status == 200) {
 					$('#userCue').html("<font color='green'><b>注册成功</b></font>");
 				} else {
-					$('#userCue').html("<font color='green'><b>" + result.message + "</b></font>");
+					$('#userCue').html("<font color='red'><b>该邮箱已被注册</b></font>");
 				}
 			}
 		});

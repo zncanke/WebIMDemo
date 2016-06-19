@@ -1,8 +1,11 @@
 package com.will.imlearntest.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.sun.tracing.dtrace.ModuleAttributes;
 import com.will.imlearntest.bo.ChatRecordBo;
 import com.will.imlearntest.bo.UserBo;
+import com.will.imlearntest.po.ChatRecordPo;
 import com.will.imlearntest.vo.ChatRecordVo;
 import com.will.imlearntest.vo.PersonalInfoVo;
 import com.will.imlearntest.vo.UserStatusVo;
@@ -10,9 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -84,5 +90,17 @@ public class ChatController {
         }
         String fromEmail = (String)request.getSession().getAttribute("fromEmail");
         chatRecordBo.removeApply(email, fromEmail);
+    }
+
+    @RequestMapping("chatrecords")
+    public String exportChatRecords(HttpServletRequest request,
+                                                     HttpServletResponse response) {
+        String fromEmail = (String)request.getSession().getAttribute("fromEmail");
+        String toEmail = (String)request.getSession().getAttribute("toEmail");
+        if (fromEmail == null)
+            return null;
+        List<ChatRecordVo> list = chatRecordBo.getAllRecordsBetween(fromEmail, toEmail);
+        request.getSession().setAttribute("chatRecords", list);
+        return "chatrecords";
     }
 }

@@ -3,6 +3,7 @@ package com.will.imlearntest.bo;
 import com.will.imlearntest.dao.ChatRecordDao;
 import com.will.imlearntest.dao.UserDao;
 import com.will.imlearntest.po.ChatRecordPo;
+import com.will.imlearntest.po.PersonalInfoPo;
 import com.will.imlearntest.po.UnreadMessagePo;
 import com.will.imlearntest.po.UserPo;
 import com.will.imlearntest.vo.ChatRecordVo;
@@ -87,9 +88,11 @@ public class ChatRecordBo {
         ret.clear();
         for (String e : list) {
             UserPo u = userDao.findUserByEmail(e);
+            PersonalInfoPo p = userDao.getPersonalInfo(u.getEmail());
             UserStatusVo v = new UserStatusVo();
             v.setEmail(u.getEmail());
-            v.setUsername(v.getEmail());
+            v.setUsername(u.getUsername());
+            v.setPic(p.getPic());
             ret.put(e, v);
         }
         return ret;
@@ -102,5 +105,21 @@ public class ChatRecordBo {
     public void deleteRecordsBetween(String fromEmail, String toEmail) {
         chatRecordDao.deleteRecordsBetween(fromEmail, toEmail);
         chatRecordDao.deleteUnreadBetween(fromEmail, toEmail);
+    }
+
+    public List<ChatRecordVo> getAllRecordsBetween(String fromEmail, String toEmail) {
+        List<ChatRecordPo> list;
+        list = chatRecordDao.getAllRecordsBetween(fromEmail, toEmail);
+        List<ChatRecordVo> ret = new ArrayList<ChatRecordVo>();
+        ret.clear();
+        for (ChatRecordPo p : list) {
+            ChatRecordVo v = new ChatRecordVo();
+            v.setContent(p.getContent());
+            v.setCreateTime(p.getCreateTime());
+            v.setFromEmail(p.getFromEmail());
+            v.setToEmail(p.getToEmail());
+            ret.add(v);
+        }
+        return ret;
     }
 }

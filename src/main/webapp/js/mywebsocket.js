@@ -5,12 +5,12 @@ if('WebSocket' in window){
     websocket = new ReconnectingWebSocket("ws://localhost:8080/websocket");
 }
 else{
-    alert('Not support websocket')
+    alert('Not support websocket');
 }
 
 //连接发生错误的回调方法
 websocket.onerror = function(){
-    setMessageInnerHTML("error");
+    console.log("error");
 };
 
 //连接成功建立的回调方法

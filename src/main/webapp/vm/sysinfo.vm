@@ -2,7 +2,7 @@
     #foreach($item in $applyList.entrySet())
     <li>
         <img class="cancel" width="20" height="20" src="img/cancel.png">
-        <img width="50" height="50" src="http://lorempixel.com/50/50/people/0">
+        <img width="50" height="50" src="$item.value.pic">
         <div class="info">
             <div class="user">$item.value.username</div>
             <div class="status">$item.value.email</div>

@@ -1,0 +1,7 @@
+#foreach ($item in $chatRecords)
+    <p>fromEmail: $item.fromEmail</p>
+    <p>toEmail: $item.toEmail</p>
+    <p>time: $item.createTime</p>
+    <p>content: $item.content</p>
+    </br>
+#end

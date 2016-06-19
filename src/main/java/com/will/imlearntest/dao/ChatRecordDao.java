@@ -34,4 +34,6 @@ public interface ChatRecordDao {
 
     public int deleteUnreadBetween(@Param("fromEmail")String fromEmail,
                                    @Param("toEmail") String toEmail);
+    public List<ChatRecordPo> getAllRecordsBetween(@Param("fromEmail")String fromEmail,
+                                                   @Param("toEmail")String toEmail);
 }

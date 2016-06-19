@@ -60,4 +60,10 @@
         delete from unread_message
         where ( fromEmail = #{fromEmail} and toEmail = #{toEmail} ) or ( fromEmail = #{toEmail} and toEmail = #{fromEmail} )
     </delete>
+    <select id="getAllRecordsBetween" resultType="ChatRecordPo">
+        select * from chat_record
+        where
+        (fromEmail = #{fromEmail} and toEmail = #{toEmail}) or (fromEmail = #{toEmail} and toEmail = #{fromEmail})
+        order by create_time
+    </select>
 </mapper>

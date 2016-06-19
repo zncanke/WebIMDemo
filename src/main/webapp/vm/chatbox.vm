@@ -31,7 +31,7 @@
 </ul>
 <div class="write-form">
     <i class="fa fa-picture-o"></i>
-    <i class="fa fa-file-o"></i>
+    <i class="fa fa-file-o" id="exportChatRecord"></i>
 ##    <span class="send" onclick="insertI('$!{fromEmail}', '$!{toEmail}', '$!{fromUsername}', '$!{toUsernam}')">Send</span>
     <textarea placeholder="Type your message" name="e" id="texxt"  rows="2"onkeypress="checkKey(event)"></textarea>
 </div>
@@ -58,5 +58,8 @@
                 $("#chat").html(result);
             }
         });
+    });
+    $("#exportChatRecord").click(function () {
+        window.open("/chat/chatrecords");
     });
 </script>
